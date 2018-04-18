@@ -1,0 +1,101 @@
+0 info it worked if it ends with ok
+1 verbose cli [ '/usr/local/bin/node',
+1 verbose cli   '/usr/local/bin/npm',
+1 verbose cli   'install',
+1 verbose cli   '–g',
+1 verbose cli   'grunt-cli' ]
+2 info using npm@3.10.10
+3 info using node@v6.10.3
+4 verbose config Skipping project config: /Users/consagous/.npmrc. (matches userconfig)
+5 error arg Argument starts with non-ascii dash, this is probably invalid: [ '–g', 'grunt-cli' ]
+6 silly loadCurrentTree Starting
+7 silly install loadCurrentTree
+8 silly install readLocalPackageData
+9 silly fetchPackageMetaData –g
+10 silly fetchPackageMetaData grunt-cli
+11 silly fetchOtherPackageData –g
+12 silly cache add args [ '–g', null ]
+13 verbose cache add spec –g
+14 silly fetchNamedPackageData grunt-cli
+15 silly mapToRegistry name grunt-cli
+16 silly mapToRegistry using default registry
+17 silly mapToRegistry registry https://registry.npmjs.org/
+18 silly mapToRegistry data Result {
+18 silly mapToRegistry   raw: 'grunt-cli',
+18 silly mapToRegistry   scope: null,
+18 silly mapToRegistry   escapedName: 'grunt-cli',
+18 silly mapToRegistry   name: 'grunt-cli',
+18 silly mapToRegistry   rawSpec: '',
+18 silly mapToRegistry   spec: 'latest',
+18 silly mapToRegistry   type: 'tag' }
+19 silly mapToRegistry uri https://registry.npmjs.org/grunt-cli
+20 silly cache add parsed spec Result {
+20 silly cache add   raw: '–g',
+20 silly cache add   scope: null,
+20 silly cache add   escapedName: null,
+20 silly cache add   name: null,
+20 silly cache add   rawSpec: '–g',
+20 silly cache add   spec: '/Users/consagous/Documents/WORK/MohiApp/MohiWorking/mohi/–g',
+20 silly cache add   type: 'local' }
+21 error addLocal Could not install /Users/consagous/Documents/WORK/MohiApp/MohiWorking/mohi/–g
+22 silly fetchPackageMetaData Error: ENOENT: no such file or directory, open '/Users/consagous/Documents/WORK/MohiApp/MohiWorking/mohi/–g'
+22 silly fetchPackageMetaData     at Error (native)
+22 silly fetchPackageMetaData  error for –g { Error: ENOENT: no such file or directory, open '/Users/consagous/Documents/WORK/MohiApp/MohiWorking/mohi/–g'
+22 silly fetchPackageMetaData     at Error (native)
+22 silly fetchPackageMetaData   errno: -2,
+22 silly fetchPackageMetaData   code: 'ENOENT',
+22 silly fetchPackageMetaData   syscall: 'open',
+22 silly fetchPackageMetaData   path: '/Users/consagous/Documents/WORK/MohiApp/MohiWorking/mohi/–g' }
+23 verbose request uri https://registry.npmjs.org/grunt-cli
+24 verbose request no auth needed
+25 info attempt registry request try #1 at 9:37:59 AM
+26 verbose request id affb259c47957f08
+27 http request GET https://registry.npmjs.org/grunt-cli
+28 info retry will retry, error on last attempt: TypeError: The header content contains invalid characters
+29 info attempt registry request try #2 at 9:38:09 AM
+30 http request GET https://registry.npmjs.org/grunt-cli
+31 info retry will retry, error on last attempt: TypeError: The header content contains invalid characters
+32 info attempt registry request try #3 at 9:39:09 AM
+33 http request GET https://registry.npmjs.org/grunt-cli
+34 silly fetchPackageMetaData TypeError: The header content contains invalid characters
+34 silly fetchPackageMetaData     at ClientRequest.OutgoingMessage.setHeader (_http_outgoing.js:360:11)
+34 silly fetchPackageMetaData     at new ClientRequest (_http_client.js:85:14)
+34 silly fetchPackageMetaData     at Object.exports.request (http.js:31:10)
+34 silly fetchPackageMetaData     at Object.exports.request (https.js:199:15)
+34 silly fetchPackageMetaData     at Request.start (/usr/local/lib/node_modules/npm/node_modules/request/request.js:740:32)
+34 silly fetchPackageMetaData     at Request.end (/usr/local/lib/node_modules/npm/node_modules/request/request.js:1398:10)
+34 silly fetchPackageMetaData     at end (/usr/local/lib/node_modules/npm/node_modules/request/request.js:567:14)
+34 silly fetchPackageMetaData     at Immediate.<anonymous> (/usr/local/lib/node_modules/npm/node_modules/request/request.js:581:7)
+34 silly fetchPackageMetaData     at runCallback (timers.js:672:20)
+34 silly fetchPackageMetaData     at tryOnImmediate (timers.js:645:5)
+34 silly fetchPackageMetaData  error for grunt-cli TypeError: The header content contains invalid characters
+34 silly fetchPackageMetaData     at ClientRequest.OutgoingMessage.setHeader (_http_outgoing.js:360:11)
+34 silly fetchPackageMetaData     at new ClientRequest (_http_client.js:85:14)
+34 silly fetchPackageMetaData     at Object.exports.request (http.js:31:10)
+34 silly fetchPackageMetaData     at Object.exports.request (https.js:199:15)
+34 silly fetchPackageMetaData     at Request.start (/usr/local/lib/node_modules/npm/node_modules/request/request.js:740:32)
+34 silly fetchPackageMetaData     at Request.end (/usr/local/lib/node_modules/npm/node_modules/request/request.js:1398:10)
+34 silly fetchPackageMetaData     at end (/usr/local/lib/node_modules/npm/node_modules/request/request.js:567:14)
+34 silly fetchPackageMetaData     at Immediate.<anonymous> (/usr/local/lib/node_modules/npm/node_modules/request/request.js:581:7)
+34 silly fetchPackageMetaData     at runCallback (timers.js:672:20)
+34 silly fetchPackageMetaData     at tryOnImmediate (timers.js:645:5)
+35 silly rollbackFailedOptional Starting
+36 silly rollbackFailedOptional Finishing
+37 silly runTopLevelLifecycles Finishing
+38 silly install printInstalled
+39 verbose stack Error: ENOENT: no such file or directory, open '/Users/consagous/Documents/WORK/MohiApp/MohiWorking/mohi/–g'
+39 verbose stack     at Error (native)
+40 verbose cwd /Users/consagous/Documents/WORK/MohiApp/MohiWorking/mohi
+41 error Darwin 16.7.0
+42 error argv "/usr/local/bin/node" "/usr/local/bin/npm" "install" "–g" "grunt-cli"
+43 error node v6.10.3
+44 error npm  v3.10.10
+45 error path /Users/consagous/Documents/WORK/MohiApp/MohiWorking/mohi/–g
+46 error code ENOENT
+47 error errno -2
+48 error syscall open
+49 error enoent ENOENT: no such file or directory, open '/Users/consagous/Documents/WORK/MohiApp/MohiWorking/mohi/–g'
+50 error enoent ENOENT: no such file or directory, open '/Users/consagous/Documents/WORK/MohiApp/MohiWorking/mohi/–g'
+50 error enoent This is most likely not a problem with npm itself
+50 error enoent and is related to npm not being able to find a file.
+51 verbose exit [ -2, true ]

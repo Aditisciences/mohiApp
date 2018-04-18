@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="ProductHorizontalView" customModule="Mohi" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="322"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Dhr-M7-syK">
+                    <rect key="frame" x="0.0" y="0.0" width="375" height="30"/>
+                    <subviews>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Trending Now" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wcc-N4-Jvw">
+                            <rect key="frame" x="10" y="10" width="78.5" height="14.5"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                    </subviews>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="30" id="WGf-Tv-q80"/>
+                        <constraint firstItem="wcc-N4-Jvw" firstAttribute="top" secondItem="Dhr-M7-syK" secondAttribute="top" constant="10" id="mcr-vj-GZw"/>
+                        <constraint firstItem="wcc-N4-Jvw" firstAttribute="leading" secondItem="Dhr-M7-syK" secondAttribute="leading" constant="10" id="v5S-ly-Mvg"/>
+                    </constraints>
+                </view>
+                <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="3U6-81-rc4">
+                    <rect key="frame" x="0.0" y="30" width="375" height="292"/>
+                    <color key="backgroundColor" red="0.94901960780000005" green="0.93333333330000001" blue="0.92941176469999998" alpha="1" colorSpace="deviceRGB"/>
+                    <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="10" id="zLp-dz-otJ">
+                        <size key="itemSize" width="50" height="50"/>
+                        <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                        <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                        <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                    </collectionViewFlowLayout>
+                    <connections>
+                        <outlet property="dataSource" destination="iN0-l3-epB" id="gcI-xU-1em"/>
+                        <outlet property="delegate" destination="iN0-l3-epB" id="4T2-GU-RbZ"/>
+                    </connections>
+                </collectionView>
+            </subviews>
+            <color key="backgroundColor" red="0.99215686270000003" green="0.57647058819999997" blue="0.4549019608" alpha="1" colorSpace="deviceRGB"/>
+            <constraints>
+                <constraint firstItem="Dhr-M7-syK" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" id="6lp-8W-pZ9"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="Dhr-M7-syK" secondAttribute="trailing" id="NFy-Qx-7U7"/>
+                <constraint firstItem="3U6-81-rc4" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" constant="30" id="WcX-1g-w6x"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="3U6-81-rc4" secondAttribute="bottom" id="ZrY-T0-vk2"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="3U6-81-rc4" secondAttribute="trailing" id="gBY-LJ-o9p"/>
+                <constraint firstItem="Dhr-M7-syK" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="r5H-IY-1NT"/>
+                <constraint firstItem="3U6-81-rc4" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="wuG-Zi-f3g"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
+            <connections>
+                <outlet property="productsCollectionView" destination="3U6-81-rc4" id="lrz-9D-G60"/>
+                <outlet property="titlelabel" destination="wcc-N4-Jvw" id="h83-PK-bdt"/>
+            </connections>
+            <point key="canvasLocation" x="33.5" y="54"/>
+        </view>
+    </objects>
+</document>

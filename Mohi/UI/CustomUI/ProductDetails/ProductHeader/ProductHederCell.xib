@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13527"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="ProductHederCell" rowHeight="330" id="KGk-i7-Jjw" customClass="ProductHederCell" customModule="Mohi" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="330"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="375" height="329.5"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="k4Z-IW-n4E">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="329"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="pf2-sn-MRe">
+                                <rect key="frame" x="10" y="0.0" width="65" height="329"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qYp-kx-ubK">
+                                        <rect key="frame" x="0.0" y="0.0" width="65" height="75"/>
+                                        <connections>
+                                            <action selector="actionONSideImages:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="hX4-Gd-e5l"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zZN-XK-jiD">
+                                        <rect key="frame" x="0.0" y="85" width="65" height="74.5"/>
+                                        <connections>
+                                            <action selector="actionONSideImages:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="nZf-Hu-Ju4"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IvR-f5-tkA">
+                                        <rect key="frame" x="0.0" y="169.5" width="65" height="75"/>
+                                        <connections>
+                                            <action selector="actionONSideImages:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="ZIu-Yl-J23"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="F9d-3R-J8U">
+                                        <rect key="frame" x="0.0" y="254.5" width="65" height="74.5"/>
+                                        <connections>
+                                            <action selector="actionONSideImages:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="Oku-Lz-Epu"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="65" id="LNC-Kf-gLk"/>
+                                </constraints>
+                            </stackView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pcK-pq-daS">
+                                <rect key="frame" x="320" y="20" width="39" height="38"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="39" id="RbH-Gu-DLc"/>
+                                    <constraint firstAttribute="height" constant="38" id="a8g-UR-YsP"/>
+                                </constraints>
+                                <state key="normal" image="wishlist-gray"/>
+                                <state key="selected" image="wishlist-red-active"/>
+                                <connections>
+                                    <action selector="actionONAddToWishList:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="Ffk-1x-doQ"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="249" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3Yy-dT-GL1">
+                                <rect key="frame" x="83" y="20" width="236" height="289"/>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="bottom" secondItem="pf2-sn-MRe" secondAttribute="bottom" id="1yu-w8-Wjd"/>
+                            <constraint firstItem="pf2-sn-MRe" firstAttribute="leading" secondItem="k4Z-IW-n4E" secondAttribute="leading" constant="10" id="3Rk-Mp-MFi"/>
+                            <constraint firstAttribute="bottom" secondItem="3Yy-dT-GL1" secondAttribute="bottom" constant="20" id="P1m-mC-I3T"/>
+                            <constraint firstItem="pcK-pq-daS" firstAttribute="leading" secondItem="3Yy-dT-GL1" secondAttribute="trailing" constant="1" id="RYt-oA-4rH"/>
+                            <constraint firstItem="3Yy-dT-GL1" firstAttribute="leading" secondItem="pf2-sn-MRe" secondAttribute="trailing" constant="8" id="TAj-Nd-H3L"/>
+                            <constraint firstItem="3Yy-dT-GL1" firstAttribute="top" secondItem="k4Z-IW-n4E" secondAttribute="top" constant="20" id="Ty7-A4-Oe9"/>
+                            <constraint firstItem="pcK-pq-daS" firstAttribute="leading" secondItem="3Yy-dT-GL1" secondAttribute="trailing" constant="1" id="VNk-kI-pAz"/>
+                            <constraint firstItem="pcK-pq-daS" firstAttribute="top" secondItem="3Yy-dT-GL1" secondAttribute="top" id="a65-TO-a3Z"/>
+                            <constraint firstAttribute="trailing" secondItem="pcK-pq-daS" secondAttribute="trailing" constant="16" id="hlF-a0-I79"/>
+                            <constraint firstItem="pf2-sn-MRe" firstAttribute="top" secondItem="k4Z-IW-n4E" secondAttribute="top" id="kLO-P9-Ajj"/>
+                        </constraints>
+                    </view>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="k4Z-IW-n4E" firstAttribute="width" secondItem="H2p-sc-9uM" secondAttribute="height" multiplier="375:329" id="EOn-f7-vc3"/>
+                    <constraint firstItem="k4Z-IW-n4E" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="Px7-Kp-Zi5"/>
+                    <constraint firstAttribute="bottom" secondItem="k4Z-IW-n4E" secondAttribute="bottom" id="nvk-7j-gso"/>
+                    <constraint firstAttribute="trailing" secondItem="k4Z-IW-n4E" secondAttribute="trailing" id="rAA-6Z-al0"/>
+                    <constraint firstItem="k4Z-IW-n4E" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="zGV-Zy-9mG"/>
+                </constraints>
+            </tableViewCellContentView>
+            <viewLayoutGuide key="safeArea" id="Fsq-ZI-hqK"/>
+            <connections>
+                <outlet property="btnForWishList" destination="pcK-pq-daS" id="hcc-3j-UwJ"/>
+                <outlet property="imgThumb1" destination="qYp-kx-ubK" id="zVV-ma-NTU"/>
+                <outlet property="imgThumb2" destination="zZN-XK-jiD" id="05j-Uk-iNe"/>
+                <outlet property="imgThumb3" destination="IvR-f5-tkA" id="1rw-1X-OyM"/>
+                <outlet property="imgThumb4" destination="F9d-3R-J8U" id="ulN-GL-fsI"/>
+                <outlet property="imgThumbMain" destination="3Yy-dT-GL1" id="KEx-lk-Ktu"/>
+            </connections>
+            <point key="canvasLocation" x="26.5" y="37"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="wishlist-gray" width="24" height="22"/>
+        <image name="wishlist-red-active" width="14" height="13"/>
+    </resources>
+</document>

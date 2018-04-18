@@ -1,0 +1,76 @@
+//
+//  UploadProfileRequest.swift
+//
+
+import Foundation
+import SwiftEventBus
+
+class UploadProfileRequest: BaseRequest<APIResponseParam.Login> {
+    private var uploadProfileData:APIRequestParam.UploadProfile?
+    private var uploadImageDataList:[UploadImageData]?
+    private var token:String?
+    private var userId:String?
+    private var callBackSuccess:((_ response:APIResponseParam.Login)->Void)?
+    private var callBackError:((_ response:ErrorModel)->Void)?
+    
+    init(token:String?, userId:String?, uploadProfileData:APIRequestParam.UploadProfile, uploadImageList:[UploadImageData]?, onSuccess:((_ response:APIResponseParam.Login)->Void)?, onError:((_ response:ErrorModel)->Void)?){
+        self.token = token
+        self.userId = userId
+        self.uploadProfileData = uploadProfileData
+        self.uploadImageDataList = uploadImageList
+        self.callBackSuccess = onSuccess
+        self.callBackError = onError
+    }
+    
+    override func main() {
+        
+        //Prepare URL String
+        let urlParameter = String(format:APIParamConstants.kUpdateProfile)
+        urlString = BaseApi().urlEncodedString(nil, restUrl: urlParameter, baseUrl: APIParamConstants.kSERVER_END_POINT)
+        
+        //Get Header Parameters
+        let extraParameter:[String:String] = [APIConfigConstants.kToken:self.token!, APIConfigConstants.kUserId:self.userId!]
+        header = BaseApi().getCustomHeaders(extraParameter: extraParameter) as? [String : String]
+        
+        formDataParameter = uploadProfileData?.toJSON()
+        uploadImageList = uploadImageDataList
+        
+        //Set Method Type
+        methodType = .POSTMULTIFORM
+        
+        super.main()
+    }
+    
+    override func onSuccess(_ responseView:APIResponseParam.Login?){
+        if(responseView != nil && responseView?.loginData != nil) {
+            
+            // update prefrence info
+            ApplicationPreference.saveAppToken(appToken: responseView?.loginData?.token ?? "")
+            ApplicationPreference.saveUserId(appToken: "\(responseView?.loginData?.user_id ?? 0)")
+            // Save Address Id
+            let loginInfo: NSDictionary = responseView?.toJSON() as! NSDictionary
+            ApplicationPreference.saveLoginInfo(loginInfo: loginInfo)
+            
+            // add default shipping address
+            if(responseView?.loginData?.address != nil && responseView?.loginData?.address?.address_id != nil){
+                let addressInfo = responseView?.loginData?.address?.toJSON() as NSDictionary?
+                ApplicationPreference.saveAddressInfo(addressInfo:addressInfo!)
+            }
+            
+            SwiftEventBus.post(APIConfigConstants.kRequestOtpSuccess, sender: responseView)
+            SwiftEventBus.unregister(self)
+        }else{
+            SwiftEventBus.post(APIConfigConstants.kRequestOtpFailure)
+        }
+        
+        if(callBackSuccess != nil){
+            callBackSuccess!(responseView!)
+        }
+    }
+    
+    override func onError(_ response:ErrorModel) {
+        if(callBackError != nil){
+            callBackError!(response)
+        }
+    }
+}

@@ -1,0 +1,81 @@
+/*
+ Strings.strings
+ 
+ */
+
+//App lavel related message strings
+"app_name" = "Mohi";
+"appUpdateTitle" = "Application Update!!!";
+"newVersion" = "New version of App is available. Please download from app store.";
+"sessionExpireTitle" = "Session Expired!!!";
+
+//Internet related message strings
+"no_internet_title" = "No Internet";
+"no_internet_message" = "Please try again after some time.";
+
+//Alert button titles message strings
+"ok" = "OK";
+"cancel" = "Cancel";
+
+// Login screen message
+"emailEmpty" = "Please enter valid email id.";
+"passwordEmpty" = "Please enter password.";
+"passwordOldEmpty" = "Please enter old password.";
+"passwordNewEmpty" = "Please enter new password.";
+
+"backRegisterButtonTitle" = "Register";
+
+// Registration screen message
+"firstNameEmpty" = "Please enter name.";
+"MobileOrEmailEmpty" = "Please enter Email id or Mobile number.";
+"lastNameEmpty" = "Please enter last name.";
+//"emptyPhoneNumber" = "Please enter mobile number between 10-12 digits";
+"emptyPhoneNumber" = "Please enter phone number.";
+"emptyCountryCode" = "Please enter country code.";
+"confirmPassworEmpty" = "Please enter confirm password";
+"passwordNotMatch" = "Password and Confirm password not match";
+"passwordLowerLimit" = "Password must be 6-20 characters long";
+"enterReviewComment" = "Please enter comment first.";
+
+//Action sheet message strings
+"settings_dialog_camera_text" = "Camera";
+"settings_dialog_gallery_text" = "Gallery";
+"settings_dialog_unable_to_pick_file" = "Unable to pick file";
+"button_cancel" = "CANCEL";
+
+// Login screen message
+"emailPlaceHolder" = "Email";
+"passwordPlaceHolder" = "Password";
+"term&Condition" =  "By clicking on sign up, you agree to our\nTerms and conditions";
+
+// Screen Title
+"titleTermsCondition" = "Terms & conditions";
+"titleReturnPolicy" = "Return Policy";
+"titlePrivacyPolicy" = "Privacy Policy";
+"titleAboutUsPolicy" = "About Us";
+"titleModifyAddress" = "Modify Address";
+
+// Error
+"allFieldError" = "Please fill all mark *feild";
+"paymentModeError" = "Payment mode in progress";
+
+// Filter option title
+"titleShopByBrand" = "Shop By Brand";
+"titleColor" = "Colors";
+"titleCategories" = "Categories";
+
+// BuyNow Error
+"emptyAddress" = "Please add shipping address.";
+
+// View Cart
+//"addToWishList" = "Move to wishlist";
+//"removeToWishList" = "Remove from wishlist";
+
+"addToWishList" = "Wishlist";
+"removeToWishList" = "Wishlist";
+"noprofileupdate" = "No profile update";
+
+"emptyPinCode" = "Please enter pincode";
+//"pinCodePlaceHolder" = "Delivery options for";
+"pinCodePlaceHolder" = "DELIVERY OPTIONS FOR ";
+

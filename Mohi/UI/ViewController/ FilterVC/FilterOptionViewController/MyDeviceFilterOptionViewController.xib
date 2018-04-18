@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12120" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_0" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12088"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="MyDeviceFilterOptionViewController" customModule="RediMark" customModuleProvider="target">
+            <connections>
+                <outlet property="tableView" destination="GoU-0q-pfP" id="Syg-pt-0CK"/>
+                <outlet property="view" destination="iN0-l3-epB" id="pSO-ID-aH1"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="JTq-Ch-kq6">
+                    <rect key="frame" x="0.0" y="0.0" width="320" height="400"/>
+                    <subviews>
+                        <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="GoU-0q-pfP">
+                            <rect key="frame" x="0.0" y="0.0" width="320" height="340"/>
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        </tableView>
+                        <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="bTv-eZ-mSB">
+                            <rect key="frame" x="110" y="350" width="200" height="40"/>
+                            <subviews>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="f4y-J9-7ya">
+                                    <rect key="frame" x="0.0" y="0.0" width="95" height="40"/>
+                                    <color key="backgroundColor" red="0.98828929662704468" green="0.69295263290405273" blue="0.099750839173793793" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <state key="normal" title="Reset">
+                                        <color key="titleColor" red="0.15686274510000001" green="0.15686274510000001" blue="0.15686274510000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    </state>
+                                </button>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="636-BQ-0bU">
+                                    <rect key="frame" x="105" y="0.0" width="95" height="40"/>
+                                    <color key="backgroundColor" red="0.98828929662704468" green="0.69295263290405273" blue="0.099750839173793793" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <state key="normal" title="Apply">
+                                        <color key="titleColor" red="0.15686274510000001" green="0.15686274510000001" blue="0.15686274510000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    </state>
+                                </button>
+                            </subviews>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="40" id="RZu-Sl-8xn"/>
+                                <constraint firstAttribute="width" constant="200" id="wj9-lU-RuB"/>
+                            </constraints>
+                        </stackView>
+                    </subviews>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="400" id="2FF-5F-T4X"/>
+                        <constraint firstItem="bTv-eZ-mSB" firstAttribute="top" secondItem="GoU-0q-pfP" secondAttribute="bottom" constant="10" id="3e1-h8-xJg"/>
+                        <constraint firstAttribute="trailing" secondItem="GoU-0q-pfP" secondAttribute="trailing" id="H0F-rb-ZNl"/>
+                        <constraint firstAttribute="trailing" secondItem="bTv-eZ-mSB" secondAttribute="trailing" constant="10" id="JBR-Sb-sgY"/>
+                        <constraint firstItem="GoU-0q-pfP" firstAttribute="top" secondItem="JTq-Ch-kq6" secondAttribute="top" id="KW0-I4-4OL"/>
+                        <constraint firstItem="GoU-0q-pfP" firstAttribute="leading" secondItem="JTq-Ch-kq6" secondAttribute="leading" id="XWK-3k-BhR"/>
+                        <constraint firstAttribute="bottom" secondItem="bTv-eZ-mSB" secondAttribute="bottom" constant="10" id="kRU-yx-3Uq"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <color key="backgroundColor" red="0.19605761769999999" green="0.19609168169999999" blue="0.1960501969" alpha="0.8040320889" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="JTq-Ch-kq6" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="eLf-Hc-Mnp"/>
+                <constraint firstItem="JTq-Ch-kq6" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="x9z-oN-A6J"/>
+                <constraint firstAttribute="trailing" secondItem="JTq-Ch-kq6" secondAttribute="trailing" id="xTe-81-Jtc"/>
+            </constraints>
+            <point key="canvasLocation" x="-154.5" y="1"/>
+        </view>
+    </objects>
+</document>
