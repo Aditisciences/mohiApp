@@ -7,9 +7,10 @@
 //
 
 import UIKit
-
+import NotificationBannerSwift
 
 class LoginViewController: BaseViewController {
+    
     
     @IBOutlet weak var btnForLogin: UIButton!
     @IBOutlet weak var btnForSignUp: UIButton!
@@ -52,20 +53,29 @@ class LoginViewController: BaseViewController {
 }
 // MARK:- Action Method
 extension LoginViewController{
-    
-    @IBAction func actionOnLoginButton(_ sender: Any){
-        
-        self.view.endEditing(true)
-        
-        if (txtForLogin.text?.isEmpty)! || !(txtForLogin.text?.isEmail())! {
-            let message = BaseApp.sharedInstance.getMessageForCode("emailEmpty", fileName: "Strings")
-            BaseApp.sharedInstance.showAlertViewControllerWith(title: "Error", message: message!, buttonTitle: "OK", controller: self)
-        } else if (txtForPassword.text?.isEmpty)! {
-            let message = BaseApp.sharedInstance.getMessageForCode("passwordEmpty", fileName: "Strings")
-            BaseApp.sharedInstance.showAlertViewControllerWith(title: "Error", message: message!, buttonTitle: "OK", controller: self)
-        } else {
-            self.serverAPI()
+    // MARK:- IBActions
+    @IBAction func loginByOtp(_ sender: Any) {
+        let alert = UIAlertController(title: "Login By Otp", message: "", preferredStyle: .alert)
+        alert.addTextField { (textField) in
+            textField.placeholder = "Enter email id"
+            textField.text = ""
         }
+        alert.addTextField { (textField) in
+            textField.placeholder = "Enter otp"
+            textField.isSecureTextEntry = true
+            textField.text = ""
+        }
+        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { [weak alert] (_) in
+            let emailTextField = alert?.textFields![0]
+            let otpTextField = alert?.textFields![1]
+            self.validateLoginFields(emailTextView: emailTextField! ,passwordOtpTextView: otpTextField!)
+        }))
+    
+        self.present(alert, animated: true, completion: nil)
+    }
+    @IBAction func actionOnLoginButton(_ sender: Any){
+        self.view.endEditing(true)
+        validateLoginFields(emailTextView: txtForLogin, passwordOtpTextView: txtForPassword)
     }
     
     @IBAction func methodLoginSignup(_ sender: Any) {
@@ -84,6 +94,19 @@ extension LoginViewController{
     @IBAction func methodBack(_ sender: Any) {
         //self.navigationController?.popToRootViewController(animated: true)
         self.navigationController?.popViewController(animated: true )
+    }
+    
+    // MARK:- Custom Methods
+    func validateLoginFields(emailTextView: UITextField?, passwordOtpTextView: UITextField?) {
+        if (emailTextView?.text?.isEmpty)! || !(emailTextView?.text?.isEmail())! {
+            let message = BaseApp.sharedInstance.getMessageForCode("emailEmpty", fileName: "Strings")
+            BaseApp.sharedInstance.showAlertViewControllerWith(title: "Error", message: message!, buttonTitle: "OK", controller: self)
+        } else if (passwordOtpTextView?.text?.isEmpty)! {
+            let message = BaseApp.sharedInstance.getMessageForCode("passwordEmpty", fileName: "Strings")
+            BaseApp.sharedInstance.showAlertViewControllerWith(title: "Error", message: message!, buttonTitle: "OK", controller: self)
+        } else {
+            self.serverAPI(email: (emailTextView?.text!)!,password: (passwordOtpTextView?.text!)!)
+        }
     }
 }
 
@@ -134,23 +157,35 @@ extension LoginViewController: UITextFieldDelegate{
 
 // MARK:- API calling
 extension LoginViewController{
-    func serverAPI(){
+    func serverAPI(email: String, password: String){
         
         if(BaseApp.sharedInstance.isNetworkConnected){
             BaseApp.sharedInstance.showProgressHudViewWithTitle(title: "")
             
-            let loginRequestParam = APIRequestParam.Login(phoneNumber: txtForLogin.text, password: txtForPassword.text) // Change pwd
+            let loginRequestParam = APIRequestParam.Login(phoneNumber: email, password: password) // Change pwd
             let login = LoginRequest(loginData: loginRequestParam, onSuccess: {
                 response in
                 
                 print(response.toJSON())
-                
+                if response.toJSON()["status"] as! String == "error"{
+                    
+                    let message = response.toJSON()["msg"] as! String
+                    BaseApp.sharedInstance.showAlertViewControllerWith(title: "Error" , message: message, buttonTitle: "OK", controller: self)
+                    BaseApp.sharedInstance.hideProgressHudView()
+                    return
+                } else {
+                    DispatchQueue.main.async {
+                        self.txtForLogin.text = ""
+                        self.txtForPassword.text = ""
+                    }
+                    NotificationBannerQueue.default.removeAll()
+                }
                 OperationQueue.main.addOperation() {
                     // when done, update your UI and/or model on the main queue
                     BaseApp.sharedInstance.hideProgressHudView()
                     
                     // MARK:- Change functionality as per skip flow
-//                    BaseApp.sharedInstance.openDashboardViewControllerOnSkip()
+                    //                    BaseApp.sharedInstance.openDashboardViewControllerOnSkip()
                     
                     // MARK:- Manage screen flow functionality as per skip flow
                     switch(BaseApp.sharedInstance.loginCallingScr){

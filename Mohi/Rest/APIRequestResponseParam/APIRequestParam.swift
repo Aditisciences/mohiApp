@@ -89,9 +89,6 @@ class APIRequestParam {
         private var cntry_code:String?
 
         //private var deviceToken:String?
-        
-        
-        
         init(firstname:String?, lastname:String?, email:String?, password:String?, cntry_code:String?, mob_number:String?) {
             
             self.firstname = firstname
@@ -206,15 +203,12 @@ class APIRequestParam {
     
     class ForgotPassword: Mappable {
         private var emailOrphoneNumber:String?
-        
         init(email:String?) {
             self.emailOrphoneNumber = email
         }
-        
         required init?(map: Map) {
-            
+
         }
-        
         //Map Auth Request Parameters
         func mapping(map: Map) {
             emailOrphoneNumber  <- map["email"]
