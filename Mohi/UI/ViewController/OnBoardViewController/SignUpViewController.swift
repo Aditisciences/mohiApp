@@ -7,16 +7,17 @@
 //
 
 import UIKit
+import NotificationBannerSwift
 //import ActiveLabel
 
 class SignUpViewController: BaseViewController {
-
-     //@IBOutlet weak var lblForTerms:UILabel!
+    
+    //@IBOutlet weak var lblForTerms:UILabel!
     @IBOutlet weak var lblForTerms:ActiveLabel!
     @IBOutlet weak var btnForSignUp: UIButton!
     @IBOutlet weak var textFieldName:UITextField!
     @IBOutlet weak var textFieldLastName:UITextField!
-
+    
     @IBOutlet weak var textFieldEmailId:UITextField!
     @IBOutlet weak var textFieldPassword:UITextField!
     @IBOutlet weak var textFieldConfirmPassword:UITextField!
@@ -24,29 +25,40 @@ class SignUpViewController: BaseViewController {
     @IBOutlet weak var textFieldCountryCode:UITextField!
     
     var webViewController:WebViewController?
+    var gradePicker: UIPickerView!
+    let gradePickerValues = ["+91", "+971", "+966","+974","+968","+973","+965","+44","+1"]
     
-//    @IBOutlet weak var lblForTerms = ActiveLabel()
+    //    @IBOutlet weak var lblForTerms = ActiveLabel()
     
+  
     override func viewDidLoad() {
         super.viewDidLoad()
-//        btnForSignUp.layer.cornerRadius = 10.0
-//        btnForSignUp.layer.masksToBounds = true
+        //        btnForSignUp.layer.cornerRadius = 10.0
+        //        btnForSignUp.layer.masksToBounds = true
+        gradePicker = UIPickerView()
+        self.gradePicker = UIPickerView(frame: CGRect(x: 0, y: 40, width: 0, height: 0
+        ))
+        
+        textFieldCountryCode.inputView = gradePicker
+        
+        gradePicker.dataSource = self
+        gradePicker.delegate = self
         
         let customType = ActiveType.custom(pattern: "\\sTerms and conditions\\b") //Regex that looks for "with"
-       
+        
         /*
-        lblForTerms.enabledTypes = [.mention, .hashtag, .url, customType]
-        lblForTerms.customColor[customType] = UIColor.orange
-        
-        lblForTerms.text = BaseApp.sharedInstance.getMessageForCode("term&Condition", fileName: "Strings")
-        
-        lblForTerms.handleCustomTap(for: customType) { element in
-            print("Custom type tapped: \(element)")
-            self.webViewController = BaseApp.sharedInstance.getViewController(storyboardName: AppConstant.WebViewStoryboard, viewControllerName: WebViewController.nameOfClass)
-            self.webViewController?.screenName = BaseApp.sharedInstance.getMessageForCode("titleTermsCondition", fileName: "Strings")!
-            //self.navigationController?.pushViewController(self.webViewController!, animated: true)
-        }
-        */
+         lblForTerms.enabledTypes = [.mention, .hashtag, .url, customType]
+         lblForTerms.customColor[customType] = UIColor.orange
+         
+         lblForTerms.text = BaseApp.sharedInstance.getMessageForCode("term&Condition", fileName: "Strings")
+         
+         lblForTerms.handleCustomTap(for: customType) { element in
+         print("Custom type tapped: \(element)")
+         self.webViewController = BaseApp.sharedInstance.getViewController(storyboardName: AppConstant.WebViewStoryboard, viewControllerName: WebViewController.nameOfClass)
+         self.webViewController?.screenName = BaseApp.sharedInstance.getMessageForCode("titleTermsCondition", fileName: "Strings")!
+         //self.navigationController?.pushViewController(self.webViewController!, animated: true)
+         }
+         */
         let fontSize:CGFloat = 14
         textFieldName.attributedPlaceholder = BaseApp.sharedInstance.getAttributeTextWithFont(text: BaseApp.sharedInstance.getMessageForCode("First name", fileName: "Strings")!, font: FontsConfig.FontHelper.defaultFontGothiWithSizeR(fontSize))
         textFieldLastName.attributedPlaceholder = BaseApp.sharedInstance.getAttributeTextWithFont(text: BaseApp.sharedInstance.getMessageForCode("Last name", fileName: "Strings")!, font: FontsConfig.FontHelper.defaultFontGothiWithSizeR(fontSize))
@@ -67,7 +79,7 @@ class SignUpViewController: BaseViewController {
     override func viewWillAppear(_ animated: Bool) {
         webViewController = nil
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -76,6 +88,116 @@ class SignUpViewController: BaseViewController {
 
 // MARK:- Action method implementation
 extension SignUpViewController{
+    @IBAction func countryCodeSelect(_ sender: Any) {
+        textFieldCountryCode.becomeFirstResponder()
+        textFieldCountryCode.text = gradePickerValues[0]
+    }
+    
+    @IBAction func loginAction(_ sender: Any) {
+        let alert = UIAlertController(title: "Login By Otp", message: "", preferredStyle: .alert)
+        alert.addTextField { (textField) in
+            textField.placeholder = "Enter email id"
+            textField.text = ""
+        }
+        alert.addTextField { (textField) in
+            textField.placeholder = "Enter otp"
+            textField.isSecureTextEntry = true
+            textField.text = ""
+        }
+        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { [weak alert] (_) in
+            let emailTextField = alert?.textFields![0]
+            let otpTextField = alert?.textFields![1]
+            self.validateLoginFields(emailTextView: emailTextField! ,passwordOtpTextView: otpTextField!)
+        }))
+        
+        self.present(alert, animated: true, completion: nil)
+    }
+    
+    @IBAction func loginByOtp(_ sender: Any) {
+        let alert = UIAlertController(title: "Login By Otp", message: "", preferredStyle: .alert)
+        alert.addTextField { (textField) in
+            textField.placeholder = "Enter email id"
+            textField.text = ""
+        }
+        alert.addTextField { (textField) in
+            textField.placeholder = "Enter otp"
+            textField.isSecureTextEntry = true
+            textField.text = ""
+        }
+        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { [weak alert] (_) in
+            let emailTextField = alert?.textFields![0]
+            let otpTextField = alert?.textFields![1]
+            self.validateLoginFields(emailTextView: emailTextField! ,passwordOtpTextView: otpTextField!)
+        }))
+        
+        self.present(alert, animated: true, completion: nil)
+    }
+    
+    // MARK:- Custom Methods
+    func validateLoginFields(emailTextView: UITextField?, passwordOtpTextView: UITextField?) {
+        if (emailTextView?.text?.isEmpty)! || !(emailTextView?.text?.isEmail())! {
+            let message = BaseApp.sharedInstance.getMessageForCode("emailEmpty", fileName: "Strings")
+            BaseApp.sharedInstance.showAlertViewControllerWith(title: "Error", message: message!, buttonTitle: "OK", controller: self)
+        } else if (passwordOtpTextView?.text?.isEmpty)! {
+            let message = BaseApp.sharedInstance.getMessageForCode("passwordEmpty", fileName: "Strings")
+            BaseApp.sharedInstance.showAlertViewControllerWith(title: "Error", message: message!, buttonTitle: "OK", controller: self)
+        } else {
+            
+            LoginManager.shared.serverAPI(email: (emailTextView?.text!)!,password: (passwordOtpTextView?.text!)!){(result,error) in
+                
+                if result != nil {
+                    if result!["status"] as! String == "error"{
+                        let message =  result!["msg"] as! String
+                        BaseApp.sharedInstance.showAlertViewControllerWith(title: "Error" , message: message, buttonTitle: "OK", controller: self)
+                        NotificationBannerQueue.default.removeAll()
+                        BaseApp.sharedInstance.hideProgressHudView()
+                        return
+                    } else {
+                        NotificationBannerQueue.default.removeAll()
+                    }
+                    OperationQueue.main.addOperation() {
+                        // when done, update your UI and/or model on the main queue
+                        BaseApp.sharedInstance.hideProgressHudView()
+                        
+                        // MARK:- Change functionality as per skip flow
+                        //                    BaseApp.sharedInstance.openDashboardViewControllerOnSkip()
+                        
+                        // MARK:- Manage screen flow functionality as per skip flow
+                        switch(BaseApp.sharedInstance.loginCallingScr){
+                        case .Menu:
+                            self.navigationController?.popToRootViewController(animated: true)
+                            break
+                        case .MyAccount:
+                            self.navigationController?.popToRootViewController(animated: true)
+                            break
+                        case .Cart:
+                            self.navigationController?.popToRootViewController(animated: true)
+                            break
+                        case .ProductDetail:
+                            for controller in (BaseApp.appDelegate.navigationController?.viewControllers)! {
+                                if (controller.nameOfClass.compare((ProductDetailsVC.nameOfClass)) == ComparisonResult.orderedSame ){
+                                    BaseApp.appDelegate.navigationController?.popToViewController(controller, animated: true)
+                                    break
+                                }
+                            }
+                            break
+                        }
+                        
+                        // Update cart count
+                        ((UIApplication.shared.delegate as? AppDelegate)?.window?.rootViewController as? TabBarViewController)?.updateViewCartCount()
+                    }
+                    
+                } else {
+                    OperationQueue.main.addOperation() {
+                        // when done, update your UI and/or model on the main queue
+                        BaseApp.sharedInstance.hideProgressHudView()
+                        BaseApp.sharedInstance.showAlertViewControllerWith(title: "Error", message: error!, buttonTitle: "OK", controller: self)
+                    }
+                }
+           }
+        }
+    }
+    
     @IBAction func methodRegisterAction(_ sender: Any) {
         
         if(isFormValid()){
@@ -89,12 +211,13 @@ extension SignUpViewController{
     }
     
     @IBAction func methodBackAction(_ sender: Any) {
-       _ = self.navigationController?.popViewController(animated: true)
+        _ = self.navigationController?.popViewController(animated: true)
     }
 }
 
 extension SignUpViewController: UITextFieldDelegate{
-     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+    
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         
         guard let text = textField.text else { return true }
         
@@ -102,14 +225,14 @@ extension SignUpViewController: UITextFieldDelegate{
         let isBackSpace = strcmp(char, "\\b")
         
         if(textField == textFieldCountryCode){
-            var limitLength = AppConstant.LIMIT_COUNTRY_CODE
-            var newLength = text.characters.count + string.characters.count - range.length
+            let limitLength = AppConstant.LIMIT_COUNTRY_CODE
+            var newLength = text.count + string.count - range.length
             if (isBackSpace == -92) {
-                newLength = (textField.text?.characters.count)!
+                newLength = (textField.text?.count)!
             }
             
             if newLength < 2 {
-                 return false
+                return false
             } else if newLength > limitLength {
                 return false
             }
@@ -161,7 +284,7 @@ extension SignUpViewController: UITextFieldDelegate{
 
 // MARK:- filePrivate method implementation
 extension SignUpViewController{
-
+    
     fileprivate func isFormValid() -> Bool{
         
         var isFound = true
@@ -212,7 +335,7 @@ extension SignUpViewController{
         
         if (BaseApp.sharedInstance.isNetworkConnected){
             BaseApp.sharedInstance.showProgressHudViewWithTitle(title: "")
-//            let registrationRequestParam = APIRequestParam.Registration(name: textFieldName.text, mobile_number: "\(textFieldCountryCode.text!)\(textFieldMobileNumber.text!)", email: textFieldEmailId.text, password: textFieldPassword.text, deviceToken: "SDFSDF45353")
+            //            let registrationRequestParam = APIRequestParam.Registration(name: textFieldName.text, mobile_number: "\(textFieldCountryCode.text!)\(textFieldMobileNumber.text!)", email: textFieldEmailId.text, password: textFieldPassword.text, deviceToken: "SDFSDF45353")
             
             
             let registrationRequestParam = APIRequestParam.Registration(firstname: textFieldName.text, lastname: textFieldLastName.text, email: textFieldEmailId.text, password: textFieldPassword.text, cntry_code: textFieldCountryCode.text, mob_number: textFieldMobileNumber.text)
@@ -276,5 +399,22 @@ extension SignUpViewController{
         } else {
             BaseApp.sharedInstance.showNetworkNotAvailableAlertController()
         }
+    }
+}
+
+extension SignUpViewController : UIPickerViewDelegate,UIPickerViewDataSource{
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        return 1
+    }
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        return gradePickerValues.count
+    }
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        return gradePickerValues[row]
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        textFieldCountryCode.text = gradePickerValues[row]
+        self.view.endEditing(true)
     }
 }

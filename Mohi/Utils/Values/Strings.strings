@@ -45,6 +45,7 @@
 
 // Login screen message
 "emailPlaceHolder" = "Email";
+"phonePlaceHolder" = "Phone Number";
 "passwordPlaceHolder" = "Password";
 "term&Condition" =  "By clicking on sign up, you agree to our\nTerms and conditions";
 

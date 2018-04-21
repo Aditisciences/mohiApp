@@ -291,6 +291,12 @@
                                             <action selector="loginByOtp:" destination="koO-To-UUt" eventType="touchUpInside" id="OuU-2X-tO5"/>
                                         </connections>
                                     </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BL4-WA-PlV">
+                                        <rect key="frame" x="26" y="185" width="46" height="30"/>
+                                        <connections>
+                                            <action selector="countryCodeSelection:" destination="koO-To-UUt" eventType="touchUpInside" id="n1R-Wl-Sbx"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <constraints>
                                     <constraint firstItem="wkc-Pk-Sbf" firstAttribute="centerX" secondItem="LF2-rM-VVl" secondAttribute="centerX" id="2p6-C5-mbf"/>
@@ -302,8 +308,10 @@
                                     <constraint firstItem="b5z-zW-lh5" firstAttribute="centerX" secondItem="2Rv-fq-fWS" secondAttribute="centerX" id="BiR-eW-VT5"/>
                                     <constraint firstItem="b5z-zW-lh5" firstAttribute="top" secondItem="pO6-YO-pVC" secondAttribute="bottom" constant="6" id="CTo-3K-QjM"/>
                                     <constraint firstItem="0nt-dx-fTt" firstAttribute="top" secondItem="2Rv-fq-fWS" secondAttribute="top" id="CU1-mR-l4c"/>
+                                    <constraint firstItem="BL4-WA-PlV" firstAttribute="leading" secondItem="2Rv-fq-fWS" secondAttribute="leading" constant="26" id="Db0-4j-XOE"/>
                                     <constraint firstItem="b5z-zW-lh5" firstAttribute="leading" secondItem="2Rv-fq-fWS" secondAttribute="leading" constant="20" id="E4Q-O5-ztz"/>
                                     <constraint firstItem="pO6-YO-pVC" firstAttribute="leading" secondItem="b5z-zW-lh5" secondAttribute="leading" id="Fe7-Xp-0IG"/>
+                                    <constraint firstItem="19U-p8-0b8" firstAttribute="top" secondItem="BL4-WA-PlV" secondAttribute="bottom" constant="20" id="GeW-Qk-6Dg"/>
                                     <constraint firstItem="1vx-FE-SA1" firstAttribute="leading" secondItem="Gz5-hg-WA8" secondAttribute="trailing" id="IZ2-s0-qwy"/>
                                     <constraint firstItem="iq8-Mk-T8m" firstAttribute="height" secondItem="ScF-Dm-QaQ" secondAttribute="height" id="KeE-ah-Yz4"/>
                                     <constraint firstItem="hlK-C2-Z8D" firstAttribute="leading" secondItem="41b-Fe-FAu" secondAttribute="trailing" id="LGu-9S-QH4"/>
@@ -320,6 +328,7 @@
                                     <constraint firstItem="yxi-VW-36r" firstAttribute="leading" secondItem="1vx-FE-SA1" secondAttribute="trailing" id="SaN-j7-Bnq"/>
                                     <constraint firstItem="Xcw-1z-Nqi" firstAttribute="top" secondItem="iG1-Lj-13k" secondAttribute="bottom" constant="18" id="TEb-Nu-HR6"/>
                                     <constraint firstItem="0nt-dx-fTt" firstAttribute="leading" secondItem="2Rv-fq-fWS" secondAttribute="leading" constant="41" id="TEv-6B-0IL"/>
+                                    <constraint firstItem="BL4-WA-PlV" firstAttribute="top" secondItem="HCI-5X-He7" secondAttribute="bottom" constant="8" id="ThL-QW-W19"/>
                                     <constraint firstItem="hlK-C2-Z8D" firstAttribute="top" secondItem="b5z-zW-lh5" secondAttribute="bottom" constant="15" id="URz-Hf-8kJ"/>
                                     <constraint firstItem="1vx-FE-SA1" firstAttribute="centerX" secondItem="wkc-Pk-Sbf" secondAttribute="centerX" id="VmS-oe-ZfZ"/>
                                     <constraint firstItem="PF1-YK-piN" firstAttribute="leading" secondItem="hlK-C2-Z8D" secondAttribute="trailing" id="W9m-yQ-zYC"/>
@@ -343,6 +352,7 @@
                                     <constraint firstItem="iG1-Lj-13k" firstAttribute="centerY" secondItem="wkc-Pk-Sbf" secondAttribute="centerY" constant="2" id="nML-iH-9LU"/>
                                     <constraint firstItem="0dD-ID-Uvj" firstAttribute="centerX" secondItem="hlK-C2-Z8D" secondAttribute="centerX" constant="29.5" id="pgz-72-YWl"/>
                                     <constraint firstItem="b5z-zW-lh5" firstAttribute="top" secondItem="2Rv-fq-fWS" secondAttribute="top" constant="85" id="rag-3c-hEY"/>
+                                    <constraint firstItem="0dD-ID-Uvj" firstAttribute="leading" secondItem="BL4-WA-PlV" secondAttribute="trailing" constant="7" id="spN-1G-E3j"/>
                                     <constraint firstItem="771-6u-fxP" firstAttribute="trailing" secondItem="LF2-rM-VVl" secondAttribute="trailing" id="uVW-yW-t5W"/>
                                     <constraint firstItem="0dD-ID-Uvj" firstAttribute="top" secondItem="hlK-C2-Z8D" secondAttribute="bottom" constant="20" id="vMg-Im-bqP"/>
                                     <constraint firstAttribute="bottom" secondItem="ScF-Dm-QaQ" secondAttribute="bottom" constant="33" id="vWm-c8-0NO"/>
@@ -374,6 +384,8 @@
                     <connections>
                         <outlet property="btnForLogin" destination="iG1-Lj-13k" id="fxo-cM-srp"/>
                         <outlet property="btnForSignUp" destination="Xcw-1z-Nqi" id="D4Q-3c-HZm"/>
+                        <outlet property="countryCodeTextField" destination="EBu-S9-fQ3" id="ynH-7o-oNR"/>
+                        <outlet property="phoneNoTextField" destination="0dD-ID-Uvj" id="dpD-Nf-odD"/>
                         <outlet property="txtForLogin" destination="b5z-zW-lh5" id="qMK-fH-Hwf"/>
                         <outlet property="txtForPassword" destination="LF2-rM-VVl" id="eGK-oF-2uM"/>
                     </connections>
@@ -533,6 +545,9 @@
                                             </userDefinedRuntimeAttribute>
                                             <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
                                         </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <action selector="loginAction:" destination="ufc-Lj-aNo" eventType="touchUpInside" id="kqE-Zb-S47"/>
+                                        </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zQV-MX-Ryo">
                                         <rect key="frame" x="168.5" y="499" width="131.5" height="40"/>
@@ -546,6 +561,9 @@
                                             </userDefinedRuntimeAttribute>
                                             <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
                                         </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <action selector="loginByOtp:" destination="ufc-Lj-aNo" eventType="touchUpInside" id="5k8-Tc-KRA"/>
+                                        </connections>
                                     </button>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" text="+91" textAlignment="center" minimumFontSize="17" background="textfield_bg" translatesAutoresizingMaskIntoConstraints="NO" id="3RX-4Q-QzO">
                                         <rect key="frame" x="20" y="229" width="52" height="40"/>
@@ -574,6 +592,12 @@
                                         <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
                                     </label>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PFe-vW-Vxw">
+                                        <rect key="frame" x="23" y="232" width="46" height="36"/>
+                                        <connections>
+                                            <action selector="countryCodeSelect:" destination="ufc-Lj-aNo" eventType="touchUpInside" id="G8y-FF-x47"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <constraints>
                                     <constraint firstItem="ZDz-4A-nZ4" firstAttribute="centerX" secondItem="WpC-ZZ-eQV" secondAttribute="centerX" id="0Eh-Lq-18B"/>
@@ -587,6 +611,7 @@
                                     <constraint firstItem="zQV-MX-Ryo" firstAttribute="width" secondItem="m94-Pr-3Wo" secondAttribute="width" id="6DP-5F-6ja"/>
                                     <constraint firstItem="zQV-MX-Ryo" firstAttribute="leading" secondItem="m94-Pr-3Wo" secondAttribute="trailing" constant="16.5" id="77V-Sy-s60"/>
                                     <constraint firstItem="m94-Pr-3Wo" firstAttribute="leading" secondItem="smy-wZ-zS8" secondAttribute="leading" constant="20" id="7XU-mI-BPD"/>
+                                    <constraint firstItem="fxK-bA-aTS" firstAttribute="top" secondItem="PFe-vW-Vxw" secondAttribute="bottom" constant="11" id="9l6-z1-Eyk"/>
                                     <constraint firstItem="G34-fJ-8tD" firstAttribute="top" secondItem="smy-wZ-zS8" secondAttribute="top" constant="12" id="9o3-z3-SaB"/>
                                     <constraint firstItem="3RX-4Q-QzO" firstAttribute="leading" secondItem="PI4-F6-cCU" secondAttribute="leading" id="AIq-DU-Zdr"/>
                                     <constraint firstItem="zQV-MX-Ryo" firstAttribute="leading" secondItem="m94-Pr-3Wo" secondAttribute="trailing" constant="17" id="AaV-rn-lrP"/>
@@ -609,6 +634,7 @@
                                     <constraint firstItem="qsZ-MD-JZi" firstAttribute="trailing" secondItem="PI4-F6-cCU" secondAttribute="trailing" constant="1" id="VXo-qS-9Oh"/>
                                     <constraint firstItem="Jlz-nt-u1h" firstAttribute="top" secondItem="ZDz-4A-nZ4" secondAttribute="bottom" constant="15" id="WsD-29-ULN"/>
                                     <constraint firstItem="PI4-F6-cCU" firstAttribute="top" secondItem="XbW-th-CWu" secondAttribute="bottom" constant="32" id="Ywy-oX-TPW"/>
+                                    <constraint firstItem="qsZ-MD-JZi" firstAttribute="leading" secondItem="PFe-vW-Vxw" secondAttribute="trailing" constant="8" id="Yxd-j5-npu"/>
                                     <constraint firstItem="WpC-ZZ-eQV" firstAttribute="top" secondItem="qsO-yE-M0W" secondAttribute="bottom" constant="16" id="ZCQ-F6-qaY"/>
                                     <constraint firstItem="qsO-yE-M0W" firstAttribute="top" secondItem="fxK-bA-aTS" secondAttribute="bottom" constant="5" id="bDw-vp-J5V"/>
                                     <constraint firstItem="qsZ-MD-JZi" firstAttribute="top" secondItem="MuK-58-rTB" secondAttribute="bottom" constant="5" id="bXZ-Aa-jrl"/>
@@ -616,12 +642,14 @@
                                     <constraint firstItem="WpC-ZZ-eQV" firstAttribute="leading" secondItem="qsO-yE-M0W" secondAttribute="leading" id="eHf-GQ-P6R"/>
                                     <constraint firstItem="PI4-F6-cCU" firstAttribute="leading" secondItem="XbW-th-CWu" secondAttribute="leading" id="fKD-q5-iTW"/>
                                     <constraint firstItem="WpC-ZZ-eQV" firstAttribute="trailing" secondItem="qsO-yE-M0W" secondAttribute="trailing" id="gRU-AP-qOG"/>
+                                    <constraint firstItem="PFe-vW-Vxw" firstAttribute="leading" secondItem="smy-wZ-zS8" secondAttribute="leading" constant="23" id="gub-mP-2Lq"/>
                                     <constraint firstItem="ZDz-4A-nZ4" firstAttribute="top" secondItem="WpC-ZZ-eQV" secondAttribute="bottom" constant="10" id="h2R-RN-fmJ"/>
                                     <constraint firstItem="XbW-th-CWu" firstAttribute="top" secondItem="crg-cx-ezA" secondAttribute="bottom" constant="5" id="ieV-MB-plj"/>
                                     <constraint firstItem="bN2-XG-6Se" firstAttribute="width" secondItem="XbW-th-CWu" secondAttribute="width" id="jyt-a3-2nd"/>
                                     <constraint firstItem="bN2-XG-6Se" firstAttribute="leading" secondItem="XbW-th-CWu" secondAttribute="trailing" constant="5" id="kEg-j0-7Ba"/>
                                     <constraint firstItem="crg-cx-ezA" firstAttribute="leading" secondItem="XbW-th-CWu" secondAttribute="leading" id="mEg-dK-HFS"/>
                                     <constraint firstItem="Jlz-nt-u1h" firstAttribute="centerX" secondItem="ZDz-4A-nZ4" secondAttribute="centerX" id="nHd-a6-zWW"/>
+                                    <constraint firstItem="PFe-vW-Vxw" firstAttribute="top" secondItem="MuK-58-rTB" secondAttribute="bottom" constant="8" id="qaG-sO-tJ0"/>
                                     <constraint firstItem="m94-Pr-3Wo" firstAttribute="top" secondItem="Jlz-nt-u1h" secondAttribute="bottom" constant="20" id="syd-fn-Wh3"/>
                                     <constraint firstItem="zQV-MX-Ryo" firstAttribute="height" secondItem="m94-Pr-3Wo" secondAttribute="height" id="viH-Fj-5rC"/>
                                     <constraint firstItem="qsZ-MD-JZi" firstAttribute="leading" secondItem="3RX-4Q-QzO" secondAttribute="trailing" constant="5" id="w4o-b1-A2U"/>
@@ -775,7 +803,6 @@
         <image name="textfield_bg" width="341" height="49"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="gL9-Ep-mZ3"/>
         <segue reference="LMV-Tq-I0C"/>
     </inferredMetricsTieBreakers>
 </document>

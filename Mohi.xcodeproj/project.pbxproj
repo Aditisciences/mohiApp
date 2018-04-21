@@ -69,6 +69,7 @@
 		180B7D99201830B700790F4B /* CheckServiceAvailabilityRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180B7D98201830B700790F4B /* CheckServiceAvailabilityRequest.swift */; };
 		180B7D9B2018A03500790F4B /* GetShippingPriceRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180B7D9A2018A03500790F4B /* GetShippingPriceRequest.swift */; };
 		180B7D9E2019F3CA00790F4B /* CustomLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180B7D9D2019F3CA00790F4B /* CustomLoader.swift */; };
+		18181050208BB363009473F0 /* LoginManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1818104F208BB363009473F0 /* LoginManager.swift */; };
 		188F773A20088E0E00B9675E /* CancelOrderRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 188F773920088E0E00B9675E /* CancelOrderRequest.swift */; };
 		18AD64EF200CE3C8007B3A6B /* LogoutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18AD64EE200CE3C8007B3A6B /* LogoutViewController.swift */; };
 		18C00A7620074B65001618B8 /* DateTimeUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18C00A7520074B64001618B8 /* DateTimeUtils.swift */; };
@@ -322,6 +323,7 @@
 		180B7D98201830B700790F4B /* CheckServiceAvailabilityRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckServiceAvailabilityRequest.swift; sourceTree = "<group>"; };
 		180B7D9A2018A03500790F4B /* GetShippingPriceRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetShippingPriceRequest.swift; sourceTree = "<group>"; };
 		180B7D9D2019F3CA00790F4B /* CustomLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomLoader.swift; sourceTree = "<group>"; };
+		1818104F208BB363009473F0 /* LoginManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginManager.swift; sourceTree = "<group>"; };
 		188F773920088E0E00B9675E /* CancelOrderRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CancelOrderRequest.swift; sourceTree = "<group>"; };
 		18AD64EE200CE3C8007B3A6B /* LogoutViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogoutViewController.swift; sourceTree = "<group>"; };
 		18C00A7520074B64001618B8 /* DateTimeUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateTimeUtils.swift; sourceTree = "<group>"; };
@@ -1378,6 +1380,7 @@
 				C3DB63BD1F6FE3770027AD64 /* LoginViewController.swift */,
 				C3DB63BF1F6FE49C0027AD64 /* SignUpViewController.swift */,
 				C3DB63C11F6FE4CA0027AD64 /* ForgotPasswordViewController.swift */,
+				1818104F208BB363009473F0 /* LoginManager.swift */,
 			);
 			path = OnBoardViewController;
 			sourceTree = "<group>";
@@ -1493,7 +1496,7 @@
 					C3CA72411F6FDB3600C810D2 = {
 						CreatedOnToolsVersion = 9.0;
 						LastSwiftMigration = 0910;
-						ProvisioningStyle = Manual;
+						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
 							com.apple.BackgroundModes = {
 								enabled = 0;
@@ -1902,6 +1905,7 @@
 				04CE17E41FD6291200502CD0 /* YourOrdersVC.swift in Sources */,
 				180B7D8F2015BC0700790F4B /* ProductSuggestionCell.swift in Sources */,
 				C3412F2C1FA8A17300238C2D /* RemoveFromAddToCartRequest.swift in Sources */,
+				18181050208BB363009473F0 /* LoginManager.swift in Sources */,
 				C357DD6F1F70F79A00A079AD /* ColorCode.swift in Sources */,
 				C357DD7C1F70F79A00A079AD /* DLHamburguerNavigationController.swift in Sources */,
 				61AE586920863DBE0021CA09 /* HomeOfferTableViewCell.swift in Sources */,
@@ -2140,7 +2144,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-2";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 3TDZSURCFT;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -2151,8 +2155,8 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.mohi.in;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "09d7af20-5376-46ef-86a7-a71268d397a8";
-				PROVISIONING_PROFILE_SPECIFIER = Mohi_in_dev;
+				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "Mohi/Utils/Mohi-Bridging-Header.h";
 				SWIFT_SWIFT3_OBJC_INFERENCE = On;
 				SWIFT_VERSION = 4.0;
@@ -2166,7 +2170,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-2";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 3TDZSURCFT;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -2177,8 +2181,8 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.mohi.in;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "09d7af20-5376-46ef-86a7-a71268d397a8";
-				PROVISIONING_PROFILE_SPECIFIER = Mohi_in_dev;
+				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "Mohi/Utils/Mohi-Bridging-Header.h";
 				SWIFT_SWIFT3_OBJC_INFERENCE = On;
 				SWIFT_VERSION = 4.0;

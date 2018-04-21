@@ -143,8 +143,16 @@ extension HamburgerViewController : UITableViewDelegate {
            self.navigationController?.pushViewController(controller, animated: true)
             break
         case HamburgerMenuType.WishList.rawValue:
-           controller = BaseApp.sharedInstance.getViewController(storyboardName: AppConstant.WishListStoryboard, viewControllerName: WishListVC.nameOfClass)
-            BaseApp.appDelegate.navigationController?.pushViewController(controller, animated: true)
+//           controller = BaseApp.sharedInstance.getViewController(storyboardName: AppConstant.WishListStoryboard, viewControllerName: WishListVC.nameOfClass)
+//            BaseApp.appDelegate.navigationController?.pushViewController(controller, animated: true)
+           if let reviewURL = URL(string: "itms-apps://itunes.apple.com/us/app/angry-birds-classic/id343200656?mt=8" ), UIApplication.shared.canOpenURL(reviewURL) {
+            if #available(iOS 10.0, *) {
+                UIApplication.shared.open(reviewURL, options: [:], completionHandler: nil)
+            } else {
+                UIApplication.shared.openURL(reviewURL)
+            }
+           }
+
             break
       
         default:

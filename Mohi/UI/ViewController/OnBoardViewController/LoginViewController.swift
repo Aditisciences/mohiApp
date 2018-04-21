@@ -12,36 +12,40 @@ import NotificationBannerSwift
 class LoginViewController: BaseViewController {
     
     
+    @IBOutlet weak var phoneNoTextField: UITextField!
     @IBOutlet weak var btnForLogin: UIButton!
     @IBOutlet weak var btnForSignUp: UIButton!
     @IBOutlet weak var txtForLogin: UITextField!
     @IBOutlet weak var txtForPassword: UITextField!
+    
+    @IBOutlet weak var countryCodeTextField: UITextField!
     //@IBOutlet weak var constraintLoginBtnHeight:NSLayoutConstraint?
     
     var isDisplaySignUp = true
+    var gradePicker: UIPickerView!
+    let gradePickerValues = ["+91", "+971", "+966","+974","+968","+973","+965","+44","+1"]
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        gradePicker = UIPickerView()
+        self.gradePicker = UIPickerView(frame: CGRect(x: 0, y: 40, width: 0, height: 0
+        ))
         
+        gradePicker.dataSource = self
+        gradePicker.delegate = self
         // Do any additional setup after loading the view.
         let fontSize:CGFloat = 14
         txtForLogin.attributedPlaceholder = BaseApp.sharedInstance.getAttributeTextWithFont(text: BaseApp.sharedInstance.getMessageForCode("emailPlaceHolder", fileName: "Strings")!, font: FontsConfig.FontHelper.defaultFontGothiWithSizeR(fontSize))
+        phoneNoTextField.attributedPlaceholder = BaseApp.sharedInstance.getAttributeTextWithFont(text: BaseApp.sharedInstance.getMessageForCode("phonePlaceHolder", fileName: "Strings")!, font: FontsConfig.FontHelper.defaultFontGothiWithSizeR(fontSize))
         txtForPassword.attributedPlaceholder = BaseApp.sharedInstance.getAttributeTextWithFont(text: BaseApp.sharedInstance.getMessageForCode("passwordPlaceHolder", fileName: "Strings")!, font: FontsConfig.FontHelper.defaultFontGothiWithSizeR(fontSize))
-        
         if(!isDisplaySignUp){
             btnForSignUp.isHidden = true
             //constraintLoginBtnHeight?.constant = 40
         }
-        
-        // Do any additional setup after loading the view.
+    
         if AppConstant.DeviceType.IS_IPHONE_X{
             self.constraintNavigationHeight?.constant = AppConstant.IPHONE_X_DEFAULT_STATUS_BAR_HEIGHT
         }
-    }
-    
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -54,6 +58,11 @@ class LoginViewController: BaseViewController {
 // MARK:- Action Method
 extension LoginViewController{
     // MARK:- IBActions
+    @IBAction func countryCodeSelection(_ sender: Any) {
+        countryCodeTextField.becomeFirstResponder()
+        countryCodeTextField.inputView = gradePicker
+        countryCodeTextField.text = gradePickerValues[0]
+    }
     @IBAction func loginByOtp(_ sender: Any) {
         let alert = UIAlertController(title: "Login By Otp", message: "", preferredStyle: .alert)
         alert.addTextField { (textField) in
@@ -70,12 +79,17 @@ extension LoginViewController{
             let otpTextField = alert?.textFields![1]
             self.validateLoginFields(emailTextView: emailTextField! ,passwordOtpTextView: otpTextField!)
         }))
-    
+        
         self.present(alert, animated: true, completion: nil)
     }
     @IBAction func actionOnLoginButton(_ sender: Any){
         self.view.endEditing(true)
-        validateLoginFields(emailTextView: txtForLogin, passwordOtpTextView: txtForPassword)
+        if (txtForLogin.text?.isEmpty)! == false {
+            validateLoginFields(emailTextView: txtForLogin, passwordOtpTextView: txtForPassword)
+        } else {
+            validateLoginFields(emailTextView: phoneNoTextField , passwordOtpTextView: txtForPassword)
+        }
+        
     }
     
     @IBAction func methodLoginSignup(_ sender: Any) {
@@ -105,7 +119,59 @@ extension LoginViewController{
             let message = BaseApp.sharedInstance.getMessageForCode("passwordEmpty", fileName: "Strings")
             BaseApp.sharedInstance.showAlertViewControllerWith(title: "Error", message: message!, buttonTitle: "OK", controller: self)
         } else {
-            self.serverAPI(email: (emailTextView?.text!)!,password: (passwordOtpTextView?.text!)!)
+            
+            LoginManager.shared.serverAPI(email: (emailTextView?.text!)!,password: (passwordOtpTextView?.text!)!) {(result,error) in
+                
+                if result != nil {
+                    if result!["status"] as! String == "error"{
+                        let message =  result!["msg"] as! String
+                        BaseApp.sharedInstance.showAlertViewControllerWith(title: "Error" , message: message, buttonTitle: "OK", controller: self)
+                        BaseApp.sharedInstance.hideProgressHudView()
+                        return
+                    } else {
+                        NotificationBannerQueue.default.removeAll()
+                    }
+                    OperationQueue.main.addOperation() {
+                        // when done, update your UI and/or model on the main queue
+                        BaseApp.sharedInstance.hideProgressHudView()
+                        
+                        // MARK:- Change functionality as per skip flow
+                        //                    BaseApp.sharedInstance.openDashboardViewControllerOnSkip()
+                        
+                        // MARK:- Manage screen flow functionality as per skip flow
+                        switch(BaseApp.sharedInstance.loginCallingScr){
+                        case .Menu:
+                            self.navigationController?.popToRootViewController(animated: true)
+                            break
+                        case .MyAccount:
+                            self.navigationController?.popToRootViewController(animated: true)
+                            break
+                        case .Cart:
+                            self.navigationController?.popToRootViewController(animated: true)
+                            break
+                        case .ProductDetail:
+                            for controller in (BaseApp.appDelegate.navigationController?.viewControllers)! {
+                                if (controller.nameOfClass.compare((ProductDetailsVC.nameOfClass)) == ComparisonResult.orderedSame ){
+                                    BaseApp.appDelegate.navigationController?.popToViewController(controller, animated: true)
+                                    break
+                                }
+                            }
+                            break
+                        }
+                        
+                        // Update cart count
+                        ((UIApplication.shared.delegate as? AppDelegate)?.window?.rootViewController as? TabBarViewController)?.updateViewCartCount()
+                    }
+                    
+                } else {
+                    OperationQueue.main.addOperation() {
+                        // when done, update your UI and/or model on the main queue
+                        BaseApp.sharedInstance.hideProgressHudView()
+                        BaseApp.sharedInstance.showAlertViewControllerWith(title: "Error", message: error!, buttonTitle: "OK", controller: self)
+                    }
+                }
+            }
+            
         }
     }
 }
@@ -136,7 +202,7 @@ extension LoginViewController: UITextFieldDelegate{
             return true
         }
         
-        let newLength = text.characters.count + string.characters.count - range.length
+        let newLength = text.count + string.count - range.length
         if limitLength > 0 && newLength > limitLength{
             return false
         }
@@ -150,82 +216,23 @@ extension LoginViewController: UITextFieldDelegate{
         }else if(lenCheckStatus == true){
             return lenCheckStatus
         }
-        
         return true
     }
 }
 
-// MARK:- API calling
-extension LoginViewController{
-    func serverAPI(email: String, password: String){
-        
-        if(BaseApp.sharedInstance.isNetworkConnected){
-            BaseApp.sharedInstance.showProgressHudViewWithTitle(title: "")
-            
-            let loginRequestParam = APIRequestParam.Login(phoneNumber: email, password: password) // Change pwd
-            let login = LoginRequest(loginData: loginRequestParam, onSuccess: {
-                response in
-                
-                print(response.toJSON())
-                if response.toJSON()["status"] as! String == "error"{
-                    
-                    let message = response.toJSON()["msg"] as! String
-                    BaseApp.sharedInstance.showAlertViewControllerWith(title: "Error" , message: message, buttonTitle: "OK", controller: self)
-                    BaseApp.sharedInstance.hideProgressHudView()
-                    return
-                } else {
-                    DispatchQueue.main.async {
-                        self.txtForLogin.text = ""
-                        self.txtForPassword.text = ""
-                    }
-                    NotificationBannerQueue.default.removeAll()
-                }
-                OperationQueue.main.addOperation() {
-                    // when done, update your UI and/or model on the main queue
-                    BaseApp.sharedInstance.hideProgressHudView()
-                    
-                    // MARK:- Change functionality as per skip flow
-                    //                    BaseApp.sharedInstance.openDashboardViewControllerOnSkip()
-                    
-                    // MARK:- Manage screen flow functionality as per skip flow
-                    switch(BaseApp.sharedInstance.loginCallingScr){
-                    case .Menu:
-                        self.navigationController?.popToRootViewController(animated: true)
-                        break
-                    case .MyAccount:
-                        self.navigationController?.popToRootViewController(animated: true)
-                        break
-                    case .Cart:
-                        self.navigationController?.popToRootViewController(animated: true)
-                        break
-                    case .ProductDetail:
-                        for controller in (BaseApp.appDelegate.navigationController?.viewControllers)! {
-                            if (controller.nameOfClass.compare((ProductDetailsVC.nameOfClass)) == ComparisonResult.orderedSame ){
-                                BaseApp.appDelegate.navigationController?.popToViewController(controller, animated: true)
-                                break
-                            }
-                        }
-                        break
-                    }
-                    
-                    // Update cart count
-                    ((UIApplication.shared.delegate as? AppDelegate)?.window?.rootViewController as? TabBarViewController)?.updateViewCartCount()
-                }
-                
-            }, onError: {
-                error in
-                print(error.toString())
-                
-                OperationQueue.main.addOperation() {
-                    // when done, update your UI and/or model on the main queue
-                    BaseApp.sharedInstance.hideProgressHudView()
-                    BaseApp.sharedInstance.showAlertViewControllerWith(title: "Error", message: error.errorMsg!, buttonTitle: "OK", controller: self)
-                }
-            })
-            BaseApp.sharedInstance.jobManager?.addOperation(login)
-            
-        } else {
-            BaseApp.sharedInstance.showNetworkNotAvailableAlertController()
-        }
+extension LoginViewController : UIPickerViewDelegate,UIPickerViewDataSource{
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        return 1
+    }
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        return gradePickerValues.count
+    }
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        return gradePickerValues[row]
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        countryCodeTextField.text = gradePickerValues[row]
+        self.view.endEditing(true)
     }
 }
