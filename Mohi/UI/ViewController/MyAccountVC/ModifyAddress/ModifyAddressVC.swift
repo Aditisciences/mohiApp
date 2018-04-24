@@ -40,11 +40,11 @@ class ModifyAddressVC: BaseViewController {
         let selectedAddress = ApplicationPreference.getAddressInfo()
         if(selectedAddress != nil){
             //selectedAddressData = APIResponseParam.ShippingAddress.ShippingAddressData().getModelObjectFromServerResponse(jsonResponse: (selectedAddress as? AnyObject)!)
-            
+
             let tempAddressData = APIResponseParam.ShippingAddress.ShippingAddressData().getModelObjectFromServerResponse(jsonResponse: (selectedAddress as? AnyObject)!)
-            
-            
-            if (tempAddressData != nil && selectedAddressData != nil && tempAddressData?.address_id?.caseInsensitiveCompare(selectedAddressData?.address_id ?? "") != ComparisonResult.orderedSame){
+
+
+            if (tempAddressData != nil && selectedAddressData != nil ){
                 selectedAddressData = tempAddressData
             }else {
                 selectedAddressData = tempAddressData
@@ -95,23 +95,27 @@ extension ModifyAddressVC: UITableViewDelegate,UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         print("I M TABLE")
+        guard shippingAddressList != nil  else {
+            print ("list is empty ++++")
+            return 0
+        }
         return shippingAddressList != nil ? (shippingAddressList?.count)! : 3
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: ModifyAddressCell.nameOfClass, for: indexPath) as! ModifyAddressCell
-//        cell.selectionStyle = UITableViewCellSelectionStyle.none
-//        cell.delegate = self
-//        cell.cellIndex = indexPath.row
-//        
-//        let shippingAddress = shippingAddressList![indexPath.row]
-//        cell.labelTitle.text = shippingAddress.name
-//        cell.labelDesc.text = shippingAddress.addressToString()
+        cell.selectionStyle = UITableViewCellSelectionStyle.none
+        cell.delegate = self
+        cell.cellIndex = indexPath.row
+        
+        let shippingAddress = shippingAddressList![indexPath.row]
+        cell.labelTitle.text = shippingAddress.firstname
+        cell.labelDesc.text = shippingAddress.addressToString()
 //        cell.buttonAddressSelection.isHidden = isDisplayDeliverHereBtnHidden
-//        
-//        // TODO: remove shipping address on BuyNow flow
-//        //cell.isDeleteBtnHidden = !isDisplayDeliverHereBtnHidden
-//        
+        
+        // TODO: remove shipping address on BuyNow flow
+        //cell.isDeleteBtnHidden = !isDisplayDeliverHereBtnHidden
+        
 //        if(self.selectedAddressData != nil){
 //            if(shippingAddressList![indexPath.row].address_id?.caseInsensitiveCompare(self.selectedAddressData?.address_id ?? "") == ComparisonResult.orderedSame){
 //                cell.buttonAddressSelection.isSelected = true
@@ -150,6 +154,7 @@ extension ModifyAddressVC: UITableViewDelegate,UITableViewDataSource {
 }
 
 extension ModifyAddressVC: ModifyAddressCellDelegate{
+    
     func editButton(cellIndex: Int, editButtonFrame: CGRect) {
         if((shippingAddressList?.count)! > cellIndex){
             // open address in edit mode
@@ -159,127 +164,13 @@ extension ModifyAddressVC: ModifyAddressCellDelegate{
             
             addNewAddressVC?.screenTitle = BaseApp.sharedInstance.getMessageForCode("titleModifyAddress", fileName: "Strings") ?? ""
             
-            self.navigationController?.pushViewController(addNewAddressVC!, animated: true)
+            self.present(addNewAddressVC!, animated: true, completion: nil)
         } else{
             self.addressTableView.reloadData()
         }
     }
     
-//    func deleteButton(cellIndex:Int, editButtonFrame:CGRect){
-//
-//        print("List total count: \(shippingAddressList?.count)")
-//        print("Delete Cell Index: \(cellIndex)")
-////        BaseApp.sharedInstance.showProgressHudViewWithTitle(title: "")
-//////        self.addressTableView.isUserInteractionEnabled = false
-////
-////        // Add Delete functionality && update address id; if save address id remove
-////        if((shippingAddressList?.count)! > cellIndex){
-////            APIClient.sharedInstance.serverAPIRemoveAddress(addressId: shippingAddressList![cellIndex].address_id!, onSuccess: {
-////                response in
-////
-////                print(response.toJSON())
-////
-////                //            OperationQueue.main.addOperation() {
-////                // remove saved address when remove address id and default address id is same
-////
-////                let selectedAddress = ApplicationPreference.getAddressInfo()
-////                if(selectedAddress != nil){
-////                    self.selectedAddressData = APIResponseParam.ShippingAddress.ShippingAddressData().getModelObjectFromServerResponse(jsonResponse: (selectedAddress as? AnyObject)!)
-////                } else {
-////                    ApplicationPreference.removeAddressInfo()
-////                    self.selectedAddressData = nil
-////                    self.labelNoAddress.isHidden = false
-////                }
-////
-////                self.shippingAddressList?.remove(at: cellIndex)
-////                //            self.addressTableView.reloadData()
-////                self.addressTableView.beginUpdates()
-////                let indexPath = IndexPath(item: cellIndex, section: 0)
-////                self.addressTableView.deleteRows(at: [indexPath], with: .none)
-////                self.addressTableView.endUpdates()
-////
-////                if(self.shippingAddressList?.count == 0){
-////                    self.labelNoAddress.isHidden = false
-////                }
-////                if self.delegate != nil {
-////                    self.delegate?.updateAddressInfo(address: self.selectedAddressData)
-////                }
-////
-////                //            self.addressTableView.isUserInteractionEnabled = true
-////                print("Remove Object :\(cellIndex)")
-////                BaseApp.sharedInstance.hideProgressHudView()
-////
-////                //self.serverAPIGetAddress()
-////
-////            }, onError: { error in
-////                print(error.toString())
-////                //            self.addressTableView.isUserInteractionEnabled = true
-////            })
-////        } else {
-////            self.addressTableView.reloadData()
-////        }
-//
-//
-//        if (BaseApp.sharedInstance.isNetworkConnected){
-//            BaseApp.sharedInstance.showProgressHudViewWithTitle(title: "")
-//
-//            let addressId = shippingAddressList![cellIndex].address_id!
-//            let removeShippingAddressParma = APIRequestParam.DeleteShippingAddress(user_id:ApplicationPreference.getUserId(), token:ApplicationPreference.getAppToken(), address_id: addressId)
-//            let removeFromAddToCartRequest =  DeleteShippingAddressRequest(deleteShippingAddress: removeShippingAddressParma, onSuccess: { response in
-//                print(response.toJSON())
-//
-//                OperationQueue.main.addOperation() {
-//
-//                    BaseApp.sharedInstance.showAlertViewControllerWith(title: "Success", message: response.message!, buttonTitle: nil, controller: nil)
-//
-//                    let selectedAddress = ApplicationPreference.getAddressInfo()
-//                    if(selectedAddress != nil){
-//                        self.selectedAddressData = APIResponseParam.ShippingAddress.ShippingAddressData().getModelObjectFromServerResponse(jsonResponse: (selectedAddress as? AnyObject)!)
-//                    } else {
-//                        ApplicationPreference.removeAddressInfo()
-//                        self.selectedAddressData = nil
-//                        self.labelNoAddress.isHidden = false
-//                    }
-//
-//
-//                    //self.addressTableView.reloadData()
-//                    self.addressTableView.beginUpdates()
-//                    self.shippingAddressList?.remove(at: cellIndex)
-//                    let indexPath = IndexPath(item: cellIndex, section: 0)
-//                    self.addressTableView.deleteRows(at: [indexPath], with: .none)
-//                    self.addressTableView?.reloadSections(NSIndexSet(index: 0) as IndexSet, with: .none)
-//                    self.addressTableView.endUpdates()
-//
-//                    if(self.shippingAddressList?.count == 0){
-//                        self.labelNoAddress.isHidden = false
-//                    }
-//                    if self.delegate != nil {
-//                        self.delegate?.updateAddressInfo(address: self.selectedAddressData)
-//                    }
-//
-//                    print("Remove Object :\(cellIndex)")
-//
-//                    DispatchQueue.main.async {
-//                        BaseApp.sharedInstance.hideProgressHudView()
-//                    }
-//
-//                }
-//            }, onError: { error in
-//                print(error.toString())
-//
-//                OperationQueue.main.addOperation() {
-//                    // when done, update your UI and/or model on the main queue
-//                    BaseApp.sharedInstance.hideProgressHudView()
-//                    BaseApp.sharedInstance.showAlertViewControllerWith(title: "Error", message: error.errorMsg!, buttonTitle: nil, controller: nil)
-//                }
-//            })
-//            BaseApp.sharedInstance.jobManager?.addOperation(removeFromAddToCartRequest)
-//
-//        } else {
-//            BaseApp.sharedInstance.showNetworkNotAvailableAlertController()
-//        }
-//    }
-    
+
     
     func deleteButton(cellIndex:Int, editButtonFrame:CGRect){
         
@@ -300,8 +191,7 @@ extension ModifyAddressVC: ModifyAddressCellDelegate{
                 }
                 
                 BaseApp.sharedInstance.showProgressHudViewWithTitle(title: "")
-
-                let removeShippingAddressParma = APIRequestParam.DeleteShippingAddress(user_id:ApplicationPreference.getUserId(), token:ApplicationPreference.getAppToken(), address_id: addressId)
+                let  removeShippingAddressParma = APIRequestParam.DeleteShippingAddress(user_id: ApplicationPreference.getUserId(), token: ApplicationPreference.getAppToken(), address_id: addressId)
                 let removeFromAddToCartRequest =  DeleteShippingAddressRequest(deleteShippingAddress: removeShippingAddressParma, onSuccess: { response in
                     print(response.toJSON())
 
@@ -410,16 +300,16 @@ extension ModifyAddressVC{
                     } else { // check if default address is alos remove
                         var found = false
                         
-                        for shippingAddress in self.shippingAddressList!{
-                            
-                            if(self.selectedAddressData?.address_id?.localizedCaseInsensitiveCompare(shippingAddress.address_id ?? "") == ComparisonResult.orderedSame){
-                                found = true
-                            }
-                        }
+//                        for shippingAddress in self.shippingAddressList!{
+//
+//                            if(self.selectedAddressData?.address_id?.localizedCaseInsensitiveCompare(shippingAddress.address_id ?? "") == ComparisonResult.orderedSame){
+//                                found = true
+//                            }
+//                        }
                         
-                        if !found {
-                            ApplicationPreference.removeAddressInfo()
-                        }
+//                        if !found {
+//                            ApplicationPreference.removeAddressInfo()
+//                        }
                     }
                     
                     self.lastViewOptionIndex = -1

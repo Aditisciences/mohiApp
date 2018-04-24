@@ -73,6 +73,7 @@
 		188F773A20088E0E00B9675E /* CancelOrderRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 188F773920088E0E00B9675E /* CancelOrderRequest.swift */; };
 		18AD64EF200CE3C8007B3A6B /* LogoutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18AD64EE200CE3C8007B3A6B /* LogoutViewController.swift */; };
 		18C00A7620074B65001618B8 /* DateTimeUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18C00A7520074B64001618B8 /* DateTimeUtils.swift */; };
+		18DCE112208E1AFE007B26B2 /* UpdateProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18DCE111208E1AFE007B26B2 /* UpdateProfileViewController.swift */; };
 		18E9AD08200879AC007AEFA6 /* NeedHelpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18E9AD07200879AC007AEFA6 /* NeedHelpViewController.swift */; };
 		18F72BE5200E1EBF0069F554 /* ZoomableImageSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18F72BE2200E1EBF0069F554 /* ZoomableImageSlider.swift */; };
 		18F72BE6200E1EBF0069F554 /* ZoomedPhotoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18F72BE3200E1EBF0069F554 /* ZoomedPhotoViewController.swift */; };
@@ -328,6 +329,7 @@
 		18AD64EE200CE3C8007B3A6B /* LogoutViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogoutViewController.swift; sourceTree = "<group>"; };
 		18C00A7520074B64001618B8 /* DateTimeUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateTimeUtils.swift; sourceTree = "<group>"; };
 		18C00A782007514D001618B8 /* Alamofire.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Alamofire.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		18DCE111208E1AFE007B26B2 /* UpdateProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateProfileViewController.swift; sourceTree = "<group>"; };
 		18E6C2DC202D6E5500D8E05F /* Mohi.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Mohi.entitlements; sourceTree = "<group>"; };
 		18E9AD07200879AC007AEFA6 /* NeedHelpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NeedHelpViewController.swift; sourceTree = "<group>"; };
 		18F72BE2200E1EBF0069F554 /* ZoomableImageSlider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ZoomableImageSlider.swift; sourceTree = "<group>"; };
@@ -638,6 +640,7 @@
 				043D4A511FD92C5F0009C0BF /* ChangePasswordVC.swift */,
 				61166DFF2067A0D4008003BF /* TimelineViewController.swift */,
 				04CE17D81FD6291100502CD0 /* MyAccount.storyboard */,
+				18DCE111208E1AFE007B26B2 /* UpdateProfileViewController.swift */,
 			);
 			path = MyAccountVC;
 			sourceTree = "<group>";
@@ -1922,6 +1925,7 @@
 				04CE17EA1FD6291200502CD0 /* ModifyAddressCell.swift in Sources */,
 				61E149CD206E98CD003551DD /* TabBarViewController.swift in Sources */,
 				C357DD741F70F79A00A079AD /* ExtensionUIColor.swift in Sources */,
+				18DCE112208E1AFE007B26B2 /* UpdateProfileViewController.swift in Sources */,
 				C372ED471F9F22C800786738 /* LoginRequest.swift in Sources */,
 				04CE17E81FD6291200502CD0 /* ShopByCategoryVC.swift in Sources */,
 				C3599F8A1FA728010063888B /* RemoveFromWishRequest.swift in Sources */,

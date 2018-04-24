@@ -10,11 +10,11 @@ import Foundation
 import SwiftEventBus
 
 class UpdateShippingAddressRequest: BaseRequest<APIResponseParam.ShippingAddress> {
-    private var updateShippingAddress:APIRequestParam.AddShippingAddress?
+    private var updateShippingAddress:APIRequestParam.UpdateShippingAddress?
     private var callBackSuccess:((_ response:APIResponseParam.ShippingAddress)->Void)?
     private var callBackError:((_ response:ErrorModel)->Void)?
     
-    init(updateShippingAddress:APIRequestParam.AddShippingAddress?, onSuccess:((_ response:APIResponseParam.ShippingAddress)->Void)?, onError:((_ response:ErrorModel)->Void)?){
+    init(updateShippingAddress:APIRequestParam.UpdateShippingAddress?, onSuccess:((_ response:APIResponseParam.ShippingAddress)->Void)?, onError:((_ response:ErrorModel)->Void)?){
         self.updateShippingAddress = updateShippingAddress
         self.callBackSuccess = onSuccess
         self.callBackError = onError

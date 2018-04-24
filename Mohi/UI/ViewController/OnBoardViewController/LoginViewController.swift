@@ -33,6 +33,7 @@ class LoginViewController: BaseViewController {
         
         gradePicker.dataSource = self
         gradePicker.delegate = self
+        countryCodeTextField.inputView = gradePicker
         // Do any additional setup after loading the view.
         let fontSize:CGFloat = 14
         txtForLogin.attributedPlaceholder = BaseApp.sharedInstance.getAttributeTextWithFont(text: BaseApp.sharedInstance.getMessageForCode("emailPlaceHolder", fileName: "Strings")!, font: FontsConfig.FontHelper.defaultFontGothiWithSizeR(fontSize))
@@ -60,7 +61,7 @@ extension LoginViewController{
     // MARK:- IBActions
     @IBAction func countryCodeSelection(_ sender: Any) {
         countryCodeTextField.becomeFirstResponder()
-        countryCodeTextField.inputView = gradePicker
+       
         countryCodeTextField.text = gradePickerValues[0]
     }
     @IBAction func loginByOtp(_ sender: Any) {

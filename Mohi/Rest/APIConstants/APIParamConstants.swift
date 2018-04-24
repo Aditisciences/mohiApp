@@ -12,25 +12,25 @@ class APIParamConstants: NSObject {
     
     // Api enviornment
     enum Env: String {
-               case PRODUCTION = ""
-//        case DEVELOPMENT = ""
+        case PRODUCTION = ""
+        //        case DEVELOPMENT = ""
     }
     
     
     //**********DEV***********
     //static let DEFAULT_ENV = Env.DEVELOPMENT.rawValue
-//    static let DEFAULT_ENV = Env.DEVELOPMENT.rawValue
+    //    static let DEFAULT_ENV = Env.DEVELOPMENT.rawValue
     //
     //    #else
     //        //******** PROD *********
-            static let DEFAULT_ENV = Env.PRODUCTION.rawValue
+    static let DEFAULT_ENV = Env.PRODUCTION.rawValue
     //    #endif
     
     
     internal static let kSERVER_END_POINT = BaseApi.getSelectedHttpEnvironment(DEFAULT_ENV).value(forKey: "SERVER_END_POINT") as! String
     
     
-     internal static let kSERVER_END_POINT_PRODUCT_API = BaseApi.getSelectedHttpEnvironmentProduct(DEFAULT_ENV).value(forKey: "SERVER_END_POINT") as! String
+    internal static let kSERVER_END_POINT_PRODUCT_API = BaseApi.getSelectedHttpEnvironmentProduct(DEFAULT_ENV).value(forKey: "SERVER_END_POINT") as! String
     
     
     //REST or SOCKET Headers
@@ -53,7 +53,7 @@ class APIParamConstants: NSObject {
     internal static let PAYUMONEY_KEY_PAYMENT_SALT = "ShzwoBLFVb";
     internal static let PAYUMONEY_KEY_PAYMENT_MID = "5970481";
     internal static let PAYUMONEY_KEY_PAYMENT_MERCHENT = "w7yOV1c1";
-
+    
     
     //MARK:- mark Sandbox Crenditials
     class  PayUMoneyParam{
@@ -65,20 +65,20 @@ class APIParamConstants: NSObject {
     }
     
     //MARK:- mark Production Crenditials
-//    class  PayUMoneyParam{
-//        //internal static let environment = PUMEnvironmentProduction
-//        internal static let environment = 0
-//        internal static let key = "";
-//        internal static let merchantid = "";
-//        internal static let payu_salt = "";
-//    }
+    //    class  PayUMoneyParam{
+    //        //internal static let environment = PUMEnvironmentProduction
+    //        internal static let environment = 0
+    //        internal static let key = "";
+    //        internal static let merchantid = "";
+    //        internal static let payu_salt = "";
+    //    }
     
-//    class WebSocket {
-//        internal static let URL = "https://doctorappchat.herokuapp.com/" // TODO: Specific socket base url
-//        internal static let TOKEN_PARAM = ""
-//    }
-//
-
+    //    class WebSocket {
+    //        internal static let URL = "https://doctorappchat.herokuapp.com/" // TODO: Specific socket base url
+    //        internal static let TOKEN_PARAM = ""
+    //    }
+    //
+    
     
     
     class DIR {
@@ -111,15 +111,12 @@ class APIParamConstants: NSObject {
     internal static let needHelpUrl = "http://www.mohi.in/help.html"
     
     // Development
-   // internal static let productDetailUrl = "http://www.mohi.ae/productDetail.php?product_id="
+    // internal static let productDetailUrl = "http://www.mohi.ae/productDetail.php?product_id="
     //internal static let needHelpUrl = "http://www.mohi.ae/help.html"
-    
-    //internal static let kLogin = "login"
     internal static let kLogin = "login"
     internal static let kForgotPassword = "forgot"
     internal static let kRegistration = "signUp"
     internal static let kGetHomeScreenDetail = "getHomeScreenDetails"
-    //internal static let kGetFeaturedProduct = "getFeaturedProduct"
     internal static let kGetCategories = "getCategories"
     internal static let kGetProduct = "getProduct"
     internal static let kGetDeals = "deals"
@@ -137,8 +134,10 @@ class APIParamConstants: NSObject {
     internal static let kColorBrandList = "getColorBrandList"
     internal static let kAddShippingAddress = "addShippingAddress"
     internal static let kGetShippingAddress = "getShippingAddress"
-    internal static let kUpdateShippingAddress = "updateShippingAddress"
-    internal static let kDeleteShippingAddress = "deleteShippingAddress"
+    internal static let kGetAddressList = "addresslist"
+    internal static let kCreateAddress = "createaddress"
+    internal static let kUpdateShippingAddress = "updateaddress"
+    internal static let kDeleteShippingAddress = "deleteaddress"
     internal static let kMobileVerification = "mobile_verification"
     internal static let kGetOrderHistory = "getOrderHistory"
     internal static let kViewCartCount = "viewCartCount"
@@ -151,16 +150,10 @@ class APIParamConstants: NSObject {
     internal static let kDevice_id = "device_id"
     internal static let kCheckServiceAvailability = "checkServiceAvailability"
     internal static let kGetShippingPrice = "getShippingPrice"
-    
     internal static let kLogout = "logout"
     internal static let kEditProfile = "editprofile"
-    
-    //internal static let kChangePassword = "password_change"
     internal static let kAds = "ads"
-    
     internal static let kOtpVerify = "otp_verify"
     internal static let kClinicInformation = "clinic_infomation"
     internal static let kMyClinicHistory = "my_clinic_history"
-    
-    
 }

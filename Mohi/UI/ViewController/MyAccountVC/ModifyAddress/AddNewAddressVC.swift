@@ -12,52 +12,80 @@ class AddNewAddressVC: BaseViewController {
     
     @IBOutlet weak var labelScreenTitle: UILabel!
     
-    @IBOutlet weak var textFieldFullName: UITextField!
-    @IBOutlet weak var textFieldMobileNumber: CustomTextField!
-    @IBOutlet weak var textFieldPincode: CustomTextField!
-    @IBOutlet weak var textFieldFlatNumber: UITextField!
-    @IBOutlet weak var textFieldStreetAddress: UITextField!
-    @IBOutlet weak var textFieldLandmark: UITextField!
+    @IBOutlet weak var textFieldFirst: UITextField!
+    @IBOutlet weak var textFieldLastName: UITextField!
+    
+    @IBOutlet weak var defaultBillingSwitch: UISwitch!
+    @IBOutlet weak var defaultAddressSwitch: UISwitch!
+    
+     @IBOutlet weak var textFieldStreetAddress: UITextField!
+    @IBOutlet weak var textFieldStreetAddress2: UITextField!
     @IBOutlet weak var textFieldCity: CustomTextField!
     @IBOutlet weak var textFieldState: CustomTextField!
-    @IBOutlet weak var textFieldCountry: UITextField!
     
+    @IBOutlet weak var textFieldMobileNumber: CustomTextField!
+    @IBOutlet weak var textFieldPincode: CustomTextField!
+   
+    @IBOutlet weak var countryCodeTextField: UITextField!
     @IBOutlet weak var newAddressStatusView: UIView!
-    @IBOutlet weak var newAddressNavigationView: UIView!
-
     
     var shippingAddressData:APIResponseParam.ShippingAddress.ShippingAddressData?
     var screenTitle = ""
-    
-    
+    var defaultAddress = true
+    var defaultBilling = true
+    var gradePicker: UIPickerView!
+    var addressId = 0
+    let gradePickerValues = ["BH(Bahrain)", "CA(Canada)", "IN(India)","KW(Kuwait)","OM(Oman)","QA(Qatar)","SA(Saudi Arabia)","AE(United Arab Emirates)","GB(United Kingdom)","UN(United States)"]
     override func viewDidLoad() {
         super.viewDidLoad()
+        gradePicker = UIPickerView()
+        self.gradePicker = UIPickerView(frame: CGRect(x: 0, y: 40, width: 0, height: 0
+        ))
+        
+        gradePicker.dataSource = self
+        gradePicker.delegate = self
+countryCodeTextField.inputView = gradePicker
+        
         
         if screenTitle.length > 0{
             labelScreenTitle.text = screenTitle
         }
         
         if shippingAddressData != nil{
-            textFieldFullName.text = shippingAddressData?.name ?? ""
+            textFieldFirst.text = shippingAddressData?.firstname ?? ""
+            textFieldLastName.text = shippingAddressData?.lastname ?? ""
+            
             textFieldMobileNumber.text = shippingAddressData?.mobile ?? ""
             textFieldPincode.text = shippingAddressData?.postcode ?? ""
-            textFieldFlatNumber.text = shippingAddressData?.flat_no ?? ""
-            textFieldStreetAddress.text = shippingAddressData?.street ?? ""
-            textFieldLandmark.text = shippingAddressData?.landmark ?? ""
+            textFieldStreetAddress.text = shippingAddressData?.street1 ?? ""
+           textFieldStreetAddress2.text = shippingAddressData?.street2 ?? ""
+            
             textFieldCity.text = shippingAddressData?.city ?? ""
             textFieldState.text = shippingAddressData?.state ?? ""
-            textFieldCountry.text = shippingAddressData?.country ?? ""
+            countryCodeTextField.text = shippingAddressData?.country ?? ""
+            if shippingAddressData?.default_billing == true {
+                defaultBilling = true
+                defaultBillingSwitch.isOn = true
+            } else {
+                defaultBilling = false
+                defaultBillingSwitch.isOn = false
+            }
+            if shippingAddressData?.default_shipping == true {
+                defaultAddress = true
+                defaultAddressSwitch.isOn = true
+            } else {
+                defaultAddress = false
+                defaultAddressSwitch.isOn = false
+            }
+            addressId = shippingAddressData?.address_id ?? 0
         }
         
-        self.newAddressStatusView.isHidden = true
-       // self.newAddressNavigationView.isHidden = true
+        self.newAddressStatusView.isHidden = false
+      
     }
-}
-
-//MARK:- Action method implementation
-extension AddNewAddressVC{
     @IBAction func backButtonAction(_ sender:Any){
-        _ = navigationController?.popViewController(animated: true)
+    
+        self.dismiss(animated: true, completion: nil)
     }
     
     @IBAction func submitButtonAction(_ sender:Any){
@@ -65,6 +93,32 @@ extension AddNewAddressVC{
             self.serverAPI()
         }
     }
+    @IBAction func defaultAddressAction(_ sender: Any) {
+        if defaultAddress {
+            defaultAddress = false
+        } else {
+            defaultAddress = true
+        }
+    }
+    
+    @IBAction func defaultBillingAction(_ sender: Any) {
+        if defaultBilling {
+            defaultBilling = false
+        } else {
+            defaultBilling = true
+        }
+    }
+    
+    @IBAction func countryCodeAction(_ sender: Any) {
+        countryCodeTextField.becomeFirstResponder()
+        countryCodeTextField.text = gradePickerValues[0]
+    }
+    
+}
+
+//MARK:- Action method implementation
+extension AddNewAddressVC{
+   
 }
 
 
@@ -74,31 +128,37 @@ extension AddNewAddressVC{
     fileprivate func isFormValid() -> Bool{
         
         var isFound = true
-        //var message = ""
+        var message = ""
         
         // checking condition
-        if (textFieldFullName.text?.isEmpty)! {
-//            message = BaseApp.sharedInstance.getMessageForCode("firstNameEmpty", fileName: "Strings")!
+        if (textFieldFirst.text?.isEmpty)! {
+           message = BaseApp.sharedInstance.getMessageForCode("firstNameEmpty", fileName: "Strings")!
             isFound = false
-        }else if (textFieldMobileNumber.text?.isEmpty)! {
+        } else if (textFieldLastName.text?.isEmpty)! {
+            message = BaseApp.sharedInstance.getMessageForCode("firstNameEmpty", fileName: "Strings")!
+            isFound = false
+        }else if (textFieldStreetAddress.text?.isEmpty)! {
+            //            message = BaseApp.sharedInstance.getMessageForCode("confirmPassworEmpty", fileName: "Strings")!
+            isFound = false
+        } else if (textFieldStreetAddress2.text?.isEmpty)! {
+           // message = BaseApp.sharedInstance.getMessageForCode("firstNameEmpty", fileName: "Strings")!
+            isFound = false
+        } else if (textFieldMobileNumber.text?.isEmpty)! {
 //            message = BaseApp.sharedInstance.getMessageForCode("emailEmpty", fileName: "Strings")!
             isFound = false
         } else if (textFieldPincode.text?.isEmpty)! {
 //            message = BaseApp.sharedInstance.getMessageForCode("passwordEmpty", fileName: "Strings")!
             isFound = false
-        } else if (textFieldFlatNumber.text?.isEmpty)!{
-//            message = BaseApp.sharedInstance.getMessageForCode("passwordLowerLimit", fileName: "Strings")!
-            isFound = false
-        } else if (textFieldStreetAddress.text?.isEmpty)! {
-//            message = BaseApp.sharedInstance.getMessageForCode("confirmPassworEmpty", fileName: "Strings")!
-            isFound = false
-        }else if(textFieldCity.text?.isEmpty)!{
+        } else if(textFieldCity.text?.isEmpty)!{
             //            message = BaseApp.sharedInstance.getMessageForCode("confirmPasswordLowerLimit", fileName: "Strings")!
             isFound = false
         } else if (textFieldState.text?.isEmpty)! {
             //            message = BaseApp.sharedInstance.getMessageForCode("passwordNotMatch", fileName: "Strings")!
             isFound = false
-        } else if (textFieldCountry.text?.isEmpty)! {
+        } else if (countryCodeTextField.text?.isEmpty)! {
+            //            message = BaseApp.sharedInstance.getMessageForCode("passwordNotMatch", fileName: "Strings")!
+            isFound = false
+        }else if (countryCodeTextField.text?.isEmpty)! {
             //            message = BaseApp.sharedInstance.getMessageForCode("passwordNotMatch", fileName: "Strings")!
             isFound = false
         }
@@ -127,16 +187,19 @@ extension AddNewAddressVC: UITextFieldDelegate{
         var isNumCheckReq = false
         var isLenCheckReq = false
         
-        if textField == textFieldFullName {
+        if textField == textFieldFirst {
             limitLength = AppConstant.LIMIT_NAME
             isLenCheckReq = true
-        } else if textField == textFieldStreetAddress || textField == textFieldLandmark || textField == textFieldCity || textField == textFieldCountry || textField == textFieldState {
+        } else if textField == textFieldLastName {
+            limitLength = AppConstant.LIMIT_NAME
+            isLenCheckReq = true
+        } else if textField == textFieldStreetAddress || textField == textFieldStreetAddress2 || textField == textFieldCity || textField == countryCodeTextField || textField == textFieldState {
             limitLength = AppConstant.LIMIT_ADDRESS
             isLenCheckReq = true
         } else if textField == textFieldMobileNumber {
             limitLength = AppConstant.LIMIT_PHONE_NUMBER
             isLenCheckReq = true
-        } else if textField == textFieldPincode || textField == textFieldFlatNumber{
+        } else if textField == textFieldPincode{
             limitLength = AppConstant.LIMIT_POSTCODE
             isLenCheckReq = true
         }
@@ -171,7 +234,8 @@ extension AddNewAddressVC{
         if (BaseApp.sharedInstance.isNetworkConnected){
             if(shippingAddressData == nil){
                 BaseApp.sharedInstance.showProgressHudViewWithTitle(title: "")
-                let addShippingAddress = APIRequestParam.AddShippingAddress(user_id: ApplicationPreference.getUserId(), token: ApplicationPreference.getAppToken(), name: textFieldFullName.text!, country: textFieldCountry.text!, city: textFieldCity.text!, postcode: textFieldPincode.text!, mobile: textFieldMobileNumber.text!, state: textFieldState.text!, street: textFieldStreetAddress.text!, landmark:textFieldLandmark.text ?? "", flat_no:textFieldFlatNumber.text!, address_id:"")
+    
+                 let addShippingAddress = APIRequestParam.AddShippingAddress(user_id: ApplicationPreference.getUserId(), token: ApplicationPreference.getAppToken(), firstname: textFieldFirst.text!, lastname: textFieldLastName.text!, street1: textFieldStreetAddress.text!, street2: textFieldStreetAddress2.text!, country: countryCodeTextField.text, city: textFieldCity.text!, postcode: textFieldPincode.text!, mobile: textFieldMobileNumber.text!, state: textFieldState.text!, defaultShipping: defaultAddress, defaultBilling: defaultBilling)
                 let addShippingAddressRequest = AddShippingAddressRequest( addShippingAddress:addShippingAddress, onSuccess: {
                     response in
                     
@@ -184,8 +248,8 @@ extension AddNewAddressVC{
                         
                         // Save Last new address is default of screen in Request
                         // Check and save address id; if address is empty
-                        
-                        self.navigationController?.popViewController(animated: true)
+                         self.dismiss(animated: true, completion: nil)
+                      //  self.navigationController?.popViewController(animated: true)
                     }
                 }, onError: {
                     error in
@@ -202,7 +266,7 @@ extension AddNewAddressVC{
             } else { // modify  address
                 BaseApp.sharedInstance.showProgressHudViewWithTitle(title: "")
                 
-                let addShippingAddress = APIRequestParam.AddShippingAddress(user_id: ApplicationPreference.getUserId(), token: ApplicationPreference.getAppToken(), name: textFieldFullName.text!, country: textFieldCountry.text!, city: textFieldCity.text!, postcode: textFieldPincode.text!, mobile: textFieldMobileNumber.text!, state: textFieldState.text!, street: textFieldStreetAddress.text!, landmark:textFieldLandmark.text ?? "", flat_no:textFieldFlatNumber.text!, address_id:shippingAddressData?.address_id!)
+                let addShippingAddress = APIRequestParam.UpdateShippingAddress(address_id: addressId,user_id: ApplicationPreference.getUserId(), token: ApplicationPreference.getAppToken(), firstname: textFieldFirst.text!, lastname: textFieldLastName.text!, street1: textFieldStreetAddress.text!, street2: textFieldStreetAddress2.text!, country: countryCodeTextField.text, city: textFieldCity.text!, postcode: textFieldPincode.text!, mobile: textFieldMobileNumber.text!, state: textFieldState.text!, defaultShipping: defaultAddress, defaultBilling: defaultBilling)
                 let addShippingAddressRequest = UpdateShippingAddressRequest( updateShippingAddress:addShippingAddress, onSuccess: {
                     response in
                     
@@ -212,7 +276,7 @@ extension AddNewAddressVC{
                         // when done, update your UI and/or model on the main queue
                         BaseApp.sharedInstance.hideProgressHudView()
                         BaseApp.sharedInstance.showAlertViewControllerWith(title: "Success", message: response.message!, buttonTitle: nil, controller: nil)
-                        self.navigationController?.popViewController(animated: true)
+                          self.dismiss(animated: true, completion: nil)
                         
                         // TODO: Check and save address id; if address is empty
                         var addressInfo = ApplicationPreference.getAddressInfo()
@@ -237,5 +301,22 @@ extension AddNewAddressVC{
         } else {
             BaseApp.sharedInstance.showNetworkNotAvailableAlertController()
         }
+    }
+}
+
+extension AddNewAddressVC : UIPickerViewDelegate,UIPickerViewDataSource{
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        return 1
+    }
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        return gradePickerValues.count
+    }
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        return gradePickerValues[row]
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        countryCodeTextField.text = gradePickerValues[row]
+        self.view.endEditing(true)
     }
 }

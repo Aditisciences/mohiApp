@@ -34,6 +34,7 @@ class ModifyAddressCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
+        
     }
     
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -84,7 +85,7 @@ extension ModifyAddressCell{
     @IBAction func deleteButtonAction(_ sender:UIButton){
         
         if(!BaseApp.sharedInstance.isTooEarlyMultipleClicks(sender)){
-            viewOption.isHidden = true
+//            viewOption.isHidden = true
             if(delegate != nil){
                 delegate?.deleteButton(cellIndex: self.cellIndex, editButtonFrame: buttonEdit.frame)
             }

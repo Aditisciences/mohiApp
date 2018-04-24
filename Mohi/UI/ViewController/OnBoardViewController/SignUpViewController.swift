@@ -38,8 +38,7 @@ class SignUpViewController: BaseViewController {
         gradePicker = UIPickerView()
         self.gradePicker = UIPickerView(frame: CGRect(x: 0, y: 40, width: 0, height: 0
         ))
-        
-        textFieldCountryCode.inputView = gradePicker
+         textFieldCountryCode.inputView = gradePicker
         
         gradePicker.dataSource = self
         gradePicker.delegate = self

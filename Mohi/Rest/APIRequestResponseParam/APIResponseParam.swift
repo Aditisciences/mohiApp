@@ -164,7 +164,7 @@ class APIResponseParam {
         
         // Data in login response
         class LoginData: Mappable{
-            var user_id:Int?
+            var user_id:String?
             var firstname:String?
             var lastname:String?
             var email:String?
@@ -1390,10 +1390,10 @@ class APIResponseParam {
                     
                     homeScreenDetail.homeData = tempDic as! [String : Any]
                     
-//                    let mapper = Mapper<HomeScreenDetail>()
-//                    if let testObject = mapper.map(JSON: tempDic as! [String : Any]){
-//                        homeScreenDetail = testObject
-//                    }
+                    //                    let mapper = Mapper<HomeScreenDetail>()
+                    //                    if let testObject = mapper.map(JSON: tempDic as! [String : Any]){
+                    //                        homeScreenDetail = testObject
+                    //                    }
                 }
             }else if jsonResponse is String{
                 let tempJsonString = jsonResponse as? String
@@ -1776,16 +1776,20 @@ class APIResponseParam {
         
         // Data in city response
         class ShippingAddressData: Mappable{
-            var address_id:String?
-            var name:String?
+            var address_id:Int?
+            var firstname:String?
+            var lastname: String?
+            var default_billing = false
+            var default_shipping = false
+            var street1 : String?
+            var street2 :String?
             var mobile:String?
             var postcode:String?
             var city:String?
-            var street:String?
+            
             var state:String?
             var country:String?
-            var landmark:String?
-            var flat_no:String?
+            
             
             init(){
                 
@@ -1821,11 +1825,11 @@ class APIResponseParam {
             }
             
             func addressToString() -> String{
-                return "\(street ?? ""),\(city ?? ""),\(state ?? ""),\(postcode ?? "")\n\(mobile ?? "")"
+                return "\(street1 ?? ""),\(street2 ?? ""),\(city ?? ""),\(state ?? ""),\(postcode ?? "")\n\(mobile ?? "")"
             }
             
             func fullAddressToString() -> String {
-                return "\(name ?? "")\n\(street ?? ""),\(city ?? ""),\(state ?? ""),\(country ?? ""),\(postcode ?? "")\n\(mobile ?? "")"
+                return "\(firstname ?? "") \(lastname ?? "")\n\(street1 ?? "")\(street2 ?? "")\(city ?? ""),\(state ?? ""),\(country ?? ""),\(postcode ?? "")\n\(mobile ?? "")"
             }
             
             required init?(map: Map){
@@ -1835,15 +1839,17 @@ class APIResponseParam {
             func mapping(map: Map){
                 
                 address_id  <- map["address_id"]
-                name        <- map["name"]
-                mobile      <- map["mobile"]
+                firstname        <- map["firstname"]
+                lastname        <- map["lastname"]
+                mobile      <- map["telephone"]
                 postcode    <- map["postcode"]
                 city        <- map["city"]
-                street      <- map["street"]
-                state       <- map["state"]
-                landmark    <- map["landmark"]
-                flat_no     <- map["flat_no"]
-                country     <- map["country"]
+                street1      <- map["street_1"]
+                street2      <- map["street_2"]
+                state       <- map["region"]
+                country     <- map["country_id"]
+                default_billing       <- map["default_billing"]
+                default_shipping       <- map["default_shipping"]
             }
         }
     }
@@ -2500,7 +2506,7 @@ class APIResponseParam {
         }
     }
     
-//    CheckServiceAvailability
+    //    CheckServiceAvailability
     class CheckServiceAvailability : BaseResponse{
         var checkServiceAvailabilityData:CheckServiceAvailabilityData?
         

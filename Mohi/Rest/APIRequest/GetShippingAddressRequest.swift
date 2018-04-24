@@ -22,8 +22,9 @@ class GetShippingAddressRequest: BaseRequest<APIResponseParam.ShippingAddressLis
     
     override func main() {
         
-        //        //Prepare URL String
-        let urlParameter = String(format:APIParamConstants.kGetShippingAddress)
+        //Prepare URL String
+        // let urlParameter = String(format:APIParamConstants.kGetShippingAddress)
+        let urlParameter = String(format:APIParamConstants.kGetAddressList)
         urlString = BaseApi().urlEncodedString(nil, restUrl: urlParameter, baseUrl: APIParamConstants.kSERVER_END_POINT)
         
         print("urlString====>%@",urlString ?? "")

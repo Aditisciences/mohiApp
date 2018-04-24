@@ -168,7 +168,7 @@ extension PaymentVC{
                 paymentMethod = APIParamConstants.PaymentMethodName.checkmo.rawValue
             }
 
-            let orderData = APIRequestParam.PlaceOrder.OrderData(currency_id: AppConstant.CURRENCY_SYMBOL, quote_id: quote_id, user_id: ApplicationPreference.getUserId()!, token: ApplicationPreference.getAppToken()!, address_id: selectedAddressData?.address_id ?? "", items: purchaseItemDataList, payment_method: paymentMethod)
+            let orderData = APIRequestParam.PlaceOrder.OrderData(currency_id: AppConstant.CURRENCY_SYMBOL, quote_id: quote_id, user_id: ApplicationPreference.getUserId()!, token: ApplicationPreference.getAppToken()!, address_id: "", items: purchaseItemDataList, payment_method: paymentMethod)
 
             let placeOrder = APIRequestParam.PlaceOrder(order_data: orderData)
             let addShippingAddressRequest = PlaceOrderRequest(productData: placeOrder, onSuccess: {

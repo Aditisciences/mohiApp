@@ -44,7 +44,7 @@ class LoginRequest: BaseRequest<APIResponseParam.Login> {
             
             // update prefrence info
             ApplicationPreference.saveAppToken(appToken: responseView?.loginData?.token ?? "")
-            ApplicationPreference.saveUserId(appToken: "\(responseView?.loginData?.user_id ?? 0)")
+            ApplicationPreference.saveUserId(appToken: "\(responseView?.loginData?.user_id ?? "")")
             // Save Address Id
             let loginInfo: NSDictionary = responseView?.toJSON() as! NSDictionary
             ApplicationPreference.saveLoginInfo(loginInfo: loginInfo)

@@ -83,7 +83,7 @@ class BuyNowVC: BaseViewController {
         prepareScrInfo()
         
         if(selectedAddressData != nil){
-            serverAPIGetDeliveryCharges(quote_id: quote_id, address_id: (selectedAddressData?.address_id)!)
+            //serverAPIGetDeliveryCharges(quote_id: quote_id, address_id: (selectedAddressData?.address_id)!)
         }
     }
     
@@ -241,10 +241,10 @@ extension BuyNowVC: ModifyAddressVCDelegate{
 
 extension BuyNowVC: BuyNowTableViewCellDelegate{
     func actionOnQty(cellIndex:Int, quantity:String){
-//        let productInfo = cartProductDataList[cellIndex]
-//        productInfo.quantity = quantity
-//        cartProductDataList[cellIndex] = productInfo
-//        calculateTotal()
+        //        let productInfo = cartProductDataList[cellIndex]
+        //        productInfo.quantity = quantity
+        //        cartProductDataList[cellIndex] = productInfo
+        //        calculateTotal()
         
         let productInfo = cartProductDataList[cellIndex]
         if(productInfo != nil){

@@ -16,18 +16,15 @@ class APIRequestParam {
         init(phoneNumber:String?, password:String?) {
             self.phoneNumberOrEmail = phoneNumber
             self.password = password
-            //self.deviceToken = deviceToken
         }
         
         required init?(map: Map) {
-            
         }
         
         //Map Auth Request Parameters
         func mapping(map: Map) {
             phoneNumberOrEmail  <- map["email"]
             password            <- map["password"]
-            //deviceToken         <- map["device_token"]
         }
     }
     
@@ -62,12 +59,9 @@ class APIRequestParam {
             self.mobile_number = mobile_number
             self.email = email
             self.password = password
-            
-            //            self.deviceToken = deviceToken
         }
         
         required init?(map: Map) {
-            
         }
         
         //Map Auth Request Parameters
@@ -76,7 +70,6 @@ class APIRequestParam {
             mobile_number   <- map["mobile_number"]
             email           <- map["email"]
             password        <- map["password"]
-            //            deviceToken     <- map["device_token"]
         }
     }
     
@@ -87,7 +80,7 @@ class APIRequestParam {
         private var email:String?
         private var password:String?
         private var cntry_code:String?
-
+        
         //private var deviceToken:String?
         init(firstname:String?, lastname:String?, email:String?, password:String?, cntry_code:String?, mob_number:String?) {
             
@@ -113,7 +106,6 @@ class APIRequestParam {
             email           <- map["email"]
             password        <- map["password"]
             cntry_code      <- map["cntry_code"]
-            //            deviceToken     <- map["device_token"]
         }
     }
     
@@ -157,15 +149,24 @@ class APIRequestParam {
     class UploadProfile: Mappable {
         var user_id:String?
         var token:String?
-        var name:String?
+        var firstname:String?
+        var lastname:String?
         var phone:String?
+        var countryCode:String?
+        var email:String?
+        var userProfile : Data?
         
         
-        init(user_id:String?, token:String?, name:String?, phone:String?) {
+        init(user_id:String?, token:String?, firstname:String?,lastname:String?, phone:String?,countryCode:String?,email:String?,userProfile: Data?) {
             self.user_id = user_id
             self.token = token
-            self.name = name
+            self.firstname = firstname
+            self.lastname = lastname
             self.phone = phone
+            self.countryCode = countryCode
+            self.email = email
+            self.userProfile = userProfile
+            
         }
         
         required init?(map: Map) {
@@ -176,8 +177,12 @@ class APIRequestParam {
         func mapping(map: Map) {
             user_id         <- map["user_id"]
             token           <- map["token"]
-            name            <- map["name"]
-            phone           <- map["mobile_number"]
+            firstname            <- map["firstname"]
+            lastname            <- map["lastname"]
+            email <- map["email"]
+            countryCode <- map["cntry_code"]
+            phone           <- map["mob_number"]
+            userProfile           <- map["user_profile"]
         }
     }
     
@@ -207,7 +212,7 @@ class APIRequestParam {
             self.emailOrphoneNumber = email
         }
         required init?(map: Map) {
-
+            
         }
         //Map Auth Request Parameters
         func mapping(map: Map) {
@@ -616,7 +621,7 @@ class APIRequestParam {
         func mapping(map: Map) {
             order_data           <- map["order_data"]
         }
-
+        
         class OrderData: Mappable{
             var currency_id:String?
             var quote_id:String?
@@ -743,31 +748,35 @@ class APIRequestParam {
         
         private var user_id:String?
         private var token:String?
-        private var name:String?
-        private var country:String?
+        private var firstname:String?
+        private var lastname:String?
+        private var street1:String?
+        private var street2:String?
         private var city:String?
-        private var postcode:String?
-        private var mobile:String?
         private var state:String?
-        private var address_id:String?
-        private var landmark:String?
-        private var flat_no:String?
-        private var street:String?
+        private var postcode:String?
+        private var country:String?
+        private var mobile:String?
+        private var defaultShipping: Bool = false
+        private var defaultBilling: Bool = false
         
         
-        init(user_id:String?,token:String?,name:String?, country:String?, city:String?, postcode:String?, mobile:String?, state:String?, street:String?, landmark:String?, flat_no:String?, address_id:String?) {
+        
+        init(user_id:String?,token:String?,firstname:String?,lastname:String?,street1:String?,street2:String?, country:String?, city:String?, postcode:String?, mobile:String?, state:String?,defaultShipping:Bool,defaultBilling: Bool) {
             self.user_id = user_id
             self.token =  token
-            self.name = name
+            self.firstname = firstname
+            self.lastname = lastname
+            
             self.country = country
             self.city = city
             self.postcode = postcode
             self.mobile = mobile
             self.state = state
-            self.street = street
-            self.address_id = address_id
-            self.flat_no = flat_no
-            self.landmark = landmark
+            self.street1 = street1
+            self.street2 = street2
+            self.defaultBilling = defaultBilling
+            self.defaultShipping = defaultShipping
         }
         
         required init?(map: Map) {
@@ -779,16 +788,78 @@ class APIRequestParam {
             
             user_id     <- map["user_id"]
             token       <- map["token"]
-            name        <- map["name"]
-            country     <- map["country"]
+            firstname        <- map["firstname"]
+            lastname  <- map["lastname"]
+            street1      <- map["street_1"]
+            street2      <- map["street_2"]
+            country     <- map["country_id"]
             city        <- map["city"]
             postcode    <- map["postcode"]
-            mobile      <- map["mobile"]
-            state       <- map["state"]
-            street      <- map["street"]
-            landmark    <- map["landmark"]
-            flat_no     <- map["flat_no"]
-            address_id  <- map["address_id"]
+            mobile      <- map["telephone"]
+            state       <- map["region"]
+            defaultShipping       <- map["default_shipping"]
+            defaultBilling       <- map["default_billing"]
+        }
+    }
+    
+    
+    
+    class UpdateShippingAddress: Mappable {
+        private var address_id:Int?
+        private var user_id:String?
+        private var token:String?
+        private var firstname:String?
+        private var lastname:String?
+        private var street1:String?
+        private var street2:String?
+        private var city:String?
+        private var state:String?
+        private var postcode:String?
+        private var country:String?
+        private var mobile:String?
+        private var defaultShipping: Bool = false
+        private var defaultBilling: Bool = false
+        
+        
+        
+        init(address_id:Int?,user_id:String?,token:String?,firstname:String?,lastname:String?,street1:String?,street2:String?, country:String?, city:String?, postcode:String?, mobile:String?, state:String?,defaultShipping:Bool,defaultBilling: Bool) {
+            self.address_id = address_id
+            self.user_id = user_id
+            self.token =  token
+            self.firstname = firstname
+            self.lastname = lastname
+            
+            self.country = country
+            self.city = city
+            self.postcode = postcode
+            self.mobile = mobile
+            self.state = state
+            self.street1 = street1
+            self.street2 = street2
+            self.defaultBilling = defaultBilling
+            self.defaultShipping = defaultShipping
+        }
+        
+        required init?(map: Map) {
+            
+        }
+        
+        //Map Auth Request Parameters
+        func mapping(map: Map) {
+            address_id <- map["address_id"]
+            user_id     <- map["user_id"]
+            token       <- map["token"]
+            firstname        <- map["firstname"]
+            lastname  <- map["lastname"]
+            street1      <- map["street_1"]
+            street2      <- map["street_2"]
+            country     <- map["country_id"]
+            city        <- map["city"]
+            postcode    <- map["postcode"]
+            mobile      <- map["telephone"]
+            state       <- map["region"]
+            defaultShipping       <- map["default_shipping"]
+            defaultBilling       <- map["default_billing"]
         }
     }
     
@@ -811,7 +882,6 @@ class APIRequestParam {
             token   <- map["token"]
         }
     }
-    
     class GetOrderHistory: Mappable {
         private var user_id:String?
         private var token:String?
@@ -841,9 +911,9 @@ class APIRequestParam {
     class DeleteShippingAddress: Mappable{
         private var user_id:String?
         private var token:String?
-        private var address_id:String?
+        private var address_id:Int?
         
-        init(user_id:String?, token:String?, address_id:String?) {
+        init(user_id:String?, token:String?, address_id:Int?) {
             self.user_id = user_id
             self.token = token
             self.address_id = address_id

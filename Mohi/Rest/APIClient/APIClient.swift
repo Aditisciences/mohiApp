@@ -102,7 +102,7 @@ class APIClient {
                     }
                     
                     ((UIApplication.shared.delegate as? AppDelegate)?.window?.rootViewController as? TabBarViewController)?.updateViewCartCount()
-
+                    
                     
                     if(onSuccess != nil){
                         onSuccess!(response)
@@ -141,7 +141,7 @@ class APIClient {
                     BaseApp.sharedInstance.showAlertViewControllerWith(title: "Success", message: response.message!, buttonTitle: nil, controller: nil)
                     
                     ((UIApplication.shared.delegate as? AppDelegate)?.window?.rootViewController as? TabBarViewController)?.updateViewCartCount()
-
+                    
                     if(onSuccess != nil){
                         onSuccess!(response)
                     }
@@ -162,17 +162,17 @@ class APIClient {
         }
     }
     
-    func serverAPIRemoveAddress(addressId:String, onSuccess:((_ response:APIResponseParam.BaseResponse)->Void)?, onError:((_ response:ErrorModel)->Void)?){
+    func serverAPIRemoveAddress(addressId:Int, onSuccess:((_ response:APIResponseParam.BaseResponse)->Void)?, onError:((_ response:ErrorModel)->Void)?){
         
         if (BaseApp.sharedInstance.isNetworkConnected){
-//            BaseApp.sharedInstance.showProgressHudViewWithTitle(title: "")
+            //            BaseApp.sharedInstance.showProgressHudViewWithTitle(title: "")
             
             let removeShippingAddressParma = APIRequestParam.DeleteShippingAddress(user_id:ApplicationPreference.getUserId(), token:ApplicationPreference.getAppToken(), address_id: addressId)
             let removeFromAddToCartRequest =  DeleteShippingAddressRequest(deleteShippingAddress: removeShippingAddressParma, onSuccess: { response in
                 print(response.toJSON())
                 
                 OperationQueue.main.addOperation() {
-//                    BaseApp.sharedInstance.hideProgressHudView()
+                    //                    BaseApp.sharedInstance.hideProgressHudView()
                     BaseApp.sharedInstance.showAlertViewControllerWith(title: "Success", message: response.message!, buttonTitle: nil, controller: nil)
                     
                     if(onSuccess != nil){

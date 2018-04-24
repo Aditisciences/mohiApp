@@ -13,11 +13,10 @@ class UploadProfileRequest: BaseRequest<APIResponseParam.Login> {
     private var callBackSuccess:((_ response:APIResponseParam.Login)->Void)?
     private var callBackError:((_ response:ErrorModel)->Void)?
     
-    init(token:String?, userId:String?, uploadProfileData:APIRequestParam.UploadProfile, uploadImageList:[UploadImageData]?, onSuccess:((_ response:APIResponseParam.Login)->Void)?, onError:((_ response:ErrorModel)->Void)?){
-        self.token = token
-        self.userId = userId
+    init(uploadProfileData:APIRequestParam.UploadProfile, onSuccess:((_ response:APIResponseParam.Login)->Void)?, onError:((_ response:ErrorModel)->Void)?){
+        
         self.uploadProfileData = uploadProfileData
-        self.uploadImageDataList = uploadImageList
+        
         self.callBackSuccess = onSuccess
         self.callBackError = onError
     }
@@ -29,11 +28,11 @@ class UploadProfileRequest: BaseRequest<APIResponseParam.Login> {
         urlString = BaseApi().urlEncodedString(nil, restUrl: urlParameter, baseUrl: APIParamConstants.kSERVER_END_POINT)
         
         //Get Header Parameters
-        let extraParameter:[String:String] = [APIConfigConstants.kToken:self.token!, APIConfigConstants.kUserId:self.userId!]
-        header = BaseApi().getCustomHeaders(extraParameter: extraParameter) as? [String : String]
-        
+        //let extraParameter:[String:String] = [APIConfigConstants.kToken:self.token!, APIConfigConstants.kUserId:self.userId!]
+        // header = BaseApi().getCustomHeaders(extraParameter: extraParameter) as? [String : String]
+        header = BaseApi().getDefaultHeaders() as? [String : String]
         formDataParameter = uploadProfileData?.toJSON()
-        uploadImageList = uploadImageDataList
+        //uploadImageList = uploadImageDataList
         
         //Set Method Type
         methodType = .POSTMULTIFORM
@@ -46,7 +45,7 @@ class UploadProfileRequest: BaseRequest<APIResponseParam.Login> {
             
             // update prefrence info
             ApplicationPreference.saveAppToken(appToken: responseView?.loginData?.token ?? "")
-            ApplicationPreference.saveUserId(appToken: "\(responseView?.loginData?.user_id ?? 0)")
+            ApplicationPreference.saveUserId(appToken: "\(responseView?.loginData?.user_id ?? "")")
             // Save Address Id
             let loginInfo: NSDictionary = responseView?.toJSON() as! NSDictionary
             ApplicationPreference.saveLoginInfo(loginInfo: loginInfo)
